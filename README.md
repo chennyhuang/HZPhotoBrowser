@@ -5,15 +5,15 @@
 A framework similar to the sina weibo photo browser.
 
 * 支持显示和隐藏动画。<br/>
-  Support the show and hide animation effects
+  -- Support the show and hide animation effects
 * 支持双击缩放，手势放大缩小。<br/>
-  Supports double-click scaling, gestures to zoom in.
+  -- Supports double-click scaling, gestures to zoom in.
 * 支持图片存储。<br/>
-  Support photo storage.
+  -- Support photo storage.
 * 支持网络加载gif图片，长图滚动浏览。<br/>
-  Support network loading GIF images, scroll through long figure.
+  -- Support network loading GIF images, scroll through long figure.
 * 支持横竖屏显示。<br/>
-  Support for landscape and vertical screen display switch.
+  -- Support for landscape and vertical screen display switch.
 
 ##功能展示
 <h5>1. 显示和退出图片浏览器的动画效果</h5>
