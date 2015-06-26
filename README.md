@@ -1,16 +1,16 @@
 ## HZPhotoBrowser
 
 ##简介
-一个类似于新浪微博图片浏览器的框架。
+一个类似于新浪微博图片浏览器的框架。<br/>
 A framework similar to the sina weibo photo browser.
 
-* 支持显示和隐藏动画。
+* 支持显示和隐藏动画。<br/>
   Support the show and hide animation effects
-* 支持双击缩放，手势放大缩小。
+* 支持双击缩放，手势放大缩小。<br/>
   Supports double-click scaling, gestures to zoom in.
-* 支持图片存储。
+* 支持图片存储。<br/>
   Support photo storage.
-* 支持网络加载gif图片，长图滚动浏览。
+* 支持网络加载gif图片，长图滚动浏览。<br/>
   Support network loading GIF images, scroll through long figure.
 * 支持横竖屏显示。
   Support for landscape and vertical screen display switch.
