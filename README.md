@@ -2,11 +2,18 @@
 
 ##简介
 一个类似于新浪微博图片浏览器的框架。
+A framework similar to the sina weibo photo browser.
+
 * 支持显示和隐藏动画。
+  Support the show and hide animation effects
 * 支持双击缩放，手势放大缩小。
+  Supports double-click scaling, gestures to zoom in.
 * 支持图片存储。
+  Support photo storage.
 * 支持网络加载gif图片，长图滚动浏览。
+  Support network loading GIF images, scroll through long figure.
 * 支持横竖屏显示。
+  Support for landscape and vertical screen display switch.
 
 ##功能展示
 <h5>1. 显示和退出图片浏览器的动画效果</h5>
