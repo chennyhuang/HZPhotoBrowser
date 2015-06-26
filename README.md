@@ -12,7 +12,7 @@ A framework similar to the sina weibo photo browser.
   Support photo storage.
 * 支持网络加载gif图片，长图滚动浏览。<br/>
   Support network loading GIF images, scroll through long figure.
-* 支持横竖屏显示。
+* 支持横竖屏显示。<br/>
   Support for landscape and vertical screen display switch.
 
 ##功能展示
