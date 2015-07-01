@@ -66,5 +66,3 @@ browserVc.delegate = self;
 * 本框架纯ARC。主要目的是为了大家学习使用。
 * 如果你有好的意见或者建议，可以给我发邮件,（793487515@qq.com）。希望大家多交流，让图片浏览器更加完善。
 
-## Thanks Developer
-* 谢谢 [SDPhotoBrowser](https://github.com/gsdios/SDPhotoBrowser)，提供的思路。
