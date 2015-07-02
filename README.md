@@ -51,7 +51,7 @@ browserVc.currentImageIndex = 当前图片index;
 // 代理
 browserVc.delegate = self;
 // 展示图片浏览器
-[self.window.rootViewController presentViewController:browserVc animated:NO completion:nil];
+[browserVc show];
 ```
 
 ###实现代理
@@ -64,5 +64,5 @@ browserVc.delegate = self;
 
 ##提示
 * 本框架纯ARC。主要目的是为了大家学习使用。
-* 如果你有好的意见或者建议，可以给我发邮件,（793487515@qq.com）。希望大家多交流，让图片浏览器更加完善。
+* 如果你有好的意见或者建议，可以给我发邮件,（793487515@qq.com）,或者加我qq (793487515)。希望大家多交流，让图片浏览器更加完善。
 
