@@ -74,7 +74,14 @@
 - (void)showPhotoBrowser
 {
     UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
-    CGRect rect = [sourceView.superview convertRect:sourceView.frame toView:[self getParsentView:sourceView]];
+    UIView *parentView = [self getParsentView:sourceView];
+    CGRect rect = [sourceView.superview convertRect:sourceView.frame toView:parentView];
+    
+    //如果是tableview，要减去偏移量
+    if ([parentView isKindOfClass:[UITableView class]]) {
+        UITableView *tableview = (UITableView *)parentView;
+        rect.origin.y =  rect.origin.y - tableview.contentOffset.y;
+    }
     
     UIImageView *tempImageView = [[UIImageView alloc] init];
     tempImageView.frame = rect;
@@ -229,6 +236,11 @@
     [label performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:1.0];
 }
 
+- (void)show
+{
+    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:self animated:NO completion:nil];
+}
+
 #pragma mark 单击隐藏图片浏览器
 - (void)hidePhotoBrowser:(UITapGestureRecognizer *)recognizer
 {
@@ -236,8 +248,14 @@
     UIImageView *currentImageView = view.imageview;
     
     UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
+    UIView *parentView = [self getParsentView:sourceView];
+    CGRect targetTemp = [sourceView.superview convertRect:sourceView.frame toView:parentView];
     
-    CGRect targetTemp = [sourceView.superview convertRect:sourceView.frame toView:[self getParsentView:sourceView]];
+    // 减去偏移量
+    if ([parentView isKindOfClass:[UITableView class]]) {
+        UITableView *tableview = (UITableView *)parentView;
+        targetTemp.origin.y =  targetTemp.origin.y - tableview.contentOffset.y;
+    }
     
     CGFloat appWidth;
     CGFloat appHeight;

@@ -76,7 +76,7 @@
     browserVc.imageCount = self.photoItemArray.count; // 图片总数
     browserVc.currentImageIndex = (int)button.tag;
     browserVc.delegate = self;
-    [self.window.rootViewController presentViewController:browserVc animated:NO completion:nil];
+    [browserVc show];
 
 }
 

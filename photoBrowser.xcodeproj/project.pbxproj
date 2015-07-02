@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE35C3721B452B8B00F6848C /* HZNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE35C3711B452B8B00F6848C /* HZNavigationController.m */; };
 		EE3A82C01B38E9D6001F0E67 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A82BF1B38E9D6001F0E67 /* main.m */; };
 		EE3A82C31B38E9D6001F0E67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A82C21B38E9D6001F0E67 /* AppDelegate.m */; };
 		EE3A82CB1B38E9D6001F0E67 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE3A82CA1B38E9D6001F0E67 /* Images.xcassets */; };
@@ -48,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE35C3701B452B8B00F6848C /* HZNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZNavigationController.h; sourceTree = "<group>"; };
+		EE35C3711B452B8B00F6848C /* HZNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZNavigationController.m; sourceTree = "<group>"; };
 		EE3A82BA1B38E9D6001F0E67 /* photoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3A82BE1B38E9D6001F0E67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE3A82BF1B38E9D6001F0E67 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				EE3A83241B390E66001F0E67 /* HZImagesGroupView.m */,
 				EE3A83261B390F72001F0E67 /* HZPhotoItemModel.h */,
 				EE3A83271B390F72001F0E67 /* HZPhotoItemModel.m */,
+				EE35C3701B452B8B00F6848C /* HZNavigationController.h */,
+				EE35C3711B452B8B00F6848C /* HZNavigationController.m */,
 				EE3A82CA1B38E9D6001F0E67 /* Images.xcassets */,
 				EE3A82CC1B38E9D6001F0E67 /* LaunchScreen.xib */,
 				EE3A82BD1B38E9D6001F0E67 /* Supporting Files */,
@@ -367,6 +372,7 @@
 				EE3A83111B38EB25001F0E67 /* SDWebImagePrefetcher.m in Sources */,
 				EE3A83171B38EB25001F0E67 /* UIImageView+WebCache.m in Sources */,
 				EE3A830C1B38EB25001F0E67 /* SDWebImageCompat.m in Sources */,
+				EE35C3721B452B8B00F6848C /* HZNavigationController.m in Sources */,
 				EE3A83131B38EB25001F0E67 /* UIImage+GIF.m in Sources */,
 				EE3A82C01B38E9D6001F0E67 /* main.m in Sources */,
 			);

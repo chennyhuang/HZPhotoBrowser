@@ -25,4 +25,5 @@
 
 @property (nonatomic, weak) id<HZPhotoBrowserDelegate> delegate;
 
+- (void)show;
 @end

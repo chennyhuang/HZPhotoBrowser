@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HZTableViewController.h"
+#import "HZNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +21,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     HZTableViewController *tableview = [[HZTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.window.rootViewController = tableview;
+    HZNavigationController *nav = [[HZNavigationController alloc] initWithRootViewController:tableview];
+    self.window.rootViewController = nav;
     
     [self.window makeKeyAndVisible];
     return YES;
