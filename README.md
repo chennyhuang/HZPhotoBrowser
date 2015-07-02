@@ -15,6 +15,9 @@ A framework similar to the sina weibo photo browser.
 * 支持横竖屏显示。<br/>
   -- Support for landscape and vertical screen display switch.
 
+##说明
+如果您使用了本框架，请给我发邮件（793487515@qq.com），告诉我您的APP地址，主要目的是为了提升人气，互推。
+
 ##功能展示
 <h5>1. 显示和退出图片浏览器的动画效果</h5>
 ![image](https://github.com/chennyhuang/GIFSource/blob/master/111.gif)
@@ -64,5 +67,5 @@ browserVc.delegate = self;
 
 ##提示
 * 本框架纯ARC。主要目的是为了大家学习使用。
-* 如果你有好的意见或者建议，可以给我发邮件,（793487515@qq.com）,或者加我qq (793487515)。希望大家多交流，让图片浏览器更加完善。
+* 如果你有好的意见或者建议，可以给我发邮件,（793487515@qq.com）,如果在使用过程中遇到BUG，希望你能Issues我，谢谢。希望大家多交流，让图片浏览器更加完善。
 
