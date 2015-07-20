@@ -178,9 +178,9 @@
  
     if (self.imageCount > 1) {
         indexLabel.text = [NSString stringWithFormat:@"1/%ld", (long)self.imageCount];
+        _indexLabel = indexLabel;
+        [self.view addSubview:indexLabel];
     }
-    _indexLabel = indexLabel;
-    [self.view addSubview:indexLabel];
     
     // 2.保存按钮
     UIButton *saveButton = [[UIButton alloc] init];
