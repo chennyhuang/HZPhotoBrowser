@@ -24,7 +24,7 @@
     if (self) {
         // 清除图片缓存，便于测试
         [[SDWebImageManager sharedManager].imageCache clearDisk];
-        self.backgroundColor = [UIColor redColor];
+//        self.backgroundColor = [UIColor redColor];
     }
     return self;
 }
@@ -66,7 +66,7 @@
         btn.frame = CGRectMake(x, y, w, h);
     }];
     
-    self.frame = CGRectMake(10, 10, 280, totalRowCount * (kImagesMargin + h));
+    self.frame = CGRectMake(0, 0, 280, totalRowCount * (kImagesMargin + h));
 }
 
 - (void)buttonClick:(UIButton *)button
