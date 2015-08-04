@@ -14,11 +14,11 @@
 		<string>https://github.com/chennyhuang/HZPhotoBrowser.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>photoBrowser.xcodeproj</string>
+	<string>HZPhotoBrowser/photoBrowser.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>E0708382C77AB662DD72EB06E755C20804388628</key>
-		<string>../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/chennyhuang/HZPhotoBrowser.git</string>

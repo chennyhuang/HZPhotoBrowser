@@ -38,6 +38,7 @@
 		EE2E4FE81B70969100F01E8E /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2E4FD01B70969100F01E8E /* UIImageView+HighlightedWebCache.m */; };
 		EE2E4FE91B70969100F01E8E /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2E4FD21B70969100F01E8E /* UIImageView+WebCache.m */; };
 		EE2E4FEA1B70969100F01E8E /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2E4FD41B70969100F01E8E /* UIView+WebCacheOperation.m */; };
+		EE2E4FED1B709F4500F01E8E /* HZNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2E4FEC1B709F4500F01E8E /* HZNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,8 @@
 		EE2E4FD21B70969100F01E8E /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		EE2E4FD31B70969100F01E8E /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		EE2E4FD41B70969100F01E8E /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		EE2E4FEB1B709F4500F01E8E /* HZNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZNavigationController.h; sourceTree = "<group>"; };
+		EE2E4FEC1B709F4500F01E8E /* HZNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 				EE2E4F9F1B70967C00F01E8E /* CustomCell.m */,
 				EE2E4FA01B70967C00F01E8E /* personInfo.h */,
 				EE2E4FA11B70967C00F01E8E /* personInfo.m */,
+				EE2E4FEB1B709F4500F01E8E /* HZNavigationController.h */,
+				EE2E4FEC1B709F4500F01E8E /* HZNavigationController.m */,
 				EE2E4F9A1B70966800F01E8E /* Main.storyboard */,
 				EE2E4F781B70963C00F01E8E /* AppDelegate.h */,
 				EE2E4F791B70963C00F01E8E /* AppDelegate.m */,
@@ -385,6 +390,7 @@
 				EE2E4FE51B70969100F01E8E /* UIImage+GIF.m in Sources */,
 				EE2E4FA31B70967C00F01E8E /* CustomCell.m in Sources */,
 				EE2E4F771B70963C00F01E8E /* main.m in Sources */,
+				EE2E4FED1B709F4500F01E8E /* HZNavigationController.m in Sources */,
 				EE2E4FDA1B70969100F01E8E /* HZPhotoItemModel.m in Sources */,
 				EE2E4FE81B70969100F01E8E /* UIImageView+HighlightedWebCache.m in Sources */,
 				EE2E4FD61B70969100F01E8E /* HZIndicatorView.m in Sources */,
