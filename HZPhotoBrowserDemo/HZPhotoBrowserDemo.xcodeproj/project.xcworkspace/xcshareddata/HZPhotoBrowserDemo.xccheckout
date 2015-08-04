@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0F0BBB14-B3F1-41D2-A55D-0FB003AAD23F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HZPhotoBrowserDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E0708382C77AB662DD72EB06E755C20804388628</key>
+		<string>https://github.com/chennyhuang/HZPhotoBrowser.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>HZPhotoBrowserDemo/HZPhotoBrowserDemo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E0708382C77AB662DD72EB06E755C20804388628</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/chennyhuang/HZPhotoBrowser.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E0708382C77AB662DD72EB06E755C20804388628</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E0708382C77AB662DD72EB06E755C20804388628</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HZPhotoBrowser</string>
+		</dict>
+	</array>
+</dict>
+</plist>

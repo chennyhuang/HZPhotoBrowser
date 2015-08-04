@@ -200,11 +200,11 @@
 		EE2E4FA51B70969100F01E8E /* photoBroser */ = {
 			isa = PBXGroup;
 			children = (
+				EE2E4FB11B70969100F01E8E /* HZPhotoItemModel.h */,
+				EE2E4FB21B70969100F01E8E /* HZPhotoItemModel.m */,
 				EE2E4FA61B70969100F01E8E /* HZImagesGroupView.h */,
 				EE2E4FA71B70969100F01E8E /* HZImagesGroupView.m */,
 				EE2E4FA81B70969100F01E8E /* HZPhotoBrowser */,
-				EE2E4FB11B70969100F01E8E /* HZPhotoItemModel.h */,
-				EE2E4FB21B70969100F01E8E /* HZPhotoItemModel.m */,
 				EE2E4FB31B70969100F01E8E /* SDWebImage */,
 			);
 			path = photoBroser;
@@ -578,6 +578,7 @@
 				EE2E4F961B70963C00F01E8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE2E4F971B70963C00F01E8E /* Build configuration list for PBXNativeTarget "HZPhotoBrowserDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -586,6 +587,7 @@
 				EE2E4F991B70963C00F01E8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
