@@ -1,6 +1,7 @@
 ## HZPhotoBrowser
 ##tips
 据几位同学反映，图片在显示和隐藏的时候动画会出现错位情况。现对这种情况做出说明，首先这种情况的存在主要是由于convertRect坐标转换不正确导致，一般是直接用UITableviewController布局才会导致转换不正确。建议使用UIViewController + UITableview的方式布局。
+
 ##简介
 一个类似于新浪微博图片浏览器的框架。<br/>
 A framework similar to the sina weibo photo browser.
@@ -15,9 +16,6 @@ A framework similar to the sina weibo photo browser.
   -- Support network loading GIF images, scroll through long figure.
 * 支持横竖屏显示。<br/>
   -- Support for landscape and vertical screen display switch.
-
-##说明
-如果您使用了本框架，请给我发邮件（793487515@qq.com），告诉我您的APP地址，主要目的是为了提升人气，互推。
 
 ##功能展示
 <h5>1. 显示和退出图片浏览器的动画效果</h5>
@@ -68,5 +66,3 @@ browserVc.delegate = self;
 
 ##提示
 * 本框架纯ARC。主要目的是为了大家学习使用。
-* 如果你有好的意见或者建议，可以给我发邮件,（793487515@qq.com）,如果在使用过程中遇到BUG，希望你能Issues我，谢谢。希望大家多交流，让图片浏览器更加完善。
-
