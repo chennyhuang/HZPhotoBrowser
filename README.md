@@ -1,4 +1,9 @@
 ## HZPhotoBrowser
+##
+目前的HZPhotoBrowserBUG比较多，整体思路上面可能有问题，我用了另外一种方式实现，大家可以都试试。
+地址如下：
+  https://github.com/chennyhuang/ptoto
+
 ##tips
 据几位同学反映，图片在显示和隐藏的时候动画会出现错位情况。现对这种情况做出说明，首先这种情况的存在主要是由于convertRect坐标转换不正确导致，一般是直接用UITableviewController布局才会导致转换不正确。建议使用UIViewController + UITableview的方式布局。
 
