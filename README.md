@@ -68,6 +68,7 @@ browserVc.delegate = self;
 //高清原图 （bmiddle图）
 - (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index;
 ```
+###如何使用这份代码具体请看HZTableViewController.m文件的实现
 
 ##提示
 * 本框架纯ARC。主要目的是为了大家学习使用。

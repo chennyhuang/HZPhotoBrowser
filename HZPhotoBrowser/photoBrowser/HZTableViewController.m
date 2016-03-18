@@ -7,7 +7,7 @@
 //
 
 #import "HZTableViewController.h"
-#import "HZIndicatorView.h"
+//#import "HZIndicatorView.h"
 #import "HZImagesGroupView.h"
 #import "HZPhotoItemModel.h"
 
