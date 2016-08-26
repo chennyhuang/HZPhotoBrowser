@@ -1,6 +1,6 @@
 ## HZPhotoBrowser
 ##
-目前的HZPhotoBrowserBUG比较多，整体思路上面可能有问题，我用了另外一种方式实现，大家可以都试试。
+目前的HZPhotoBrowserBUG比较多，整体思路上面可能有问题，我用了另外一种方式实现，这种方式比较完善，建议大家使用。
 地址如下：
   https://github.com/chennyhuang/ptoto
 

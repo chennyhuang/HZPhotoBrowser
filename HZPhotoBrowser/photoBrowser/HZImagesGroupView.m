@@ -24,7 +24,7 @@
     if (self) {
         // 清除图片缓存，便于测试
         [[SDWebImageManager sharedManager].imageCache clearDisk];
-        self.backgroundColor = [UIColor redColor];
+//        self.backgroundColor = [UIColor redColor];
     }
     return self;
 }
