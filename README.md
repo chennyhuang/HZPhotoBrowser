@@ -4,10 +4,10 @@
 地址如下：
   https://github.com/chennyhuang/ptoto
 
-##tips
+## tips
 据几位同学反映，图片在显示和隐藏的时候动画会出现错位情况。现对这种情况做出说明，首先这种情况的存在主要是由于convertRect坐标转换不正确导致，一般是直接用UITableviewController布局才会导致转换不正确。建议使用UIViewController + UITableview的方式布局。
 
-##简介
+## 简介
 一个类似于新浪微博图片浏览器的框架。<br/>
 A framework similar to the sina weibo photo browser.
 
@@ -22,7 +22,7 @@ A framework similar to the sina weibo photo browser.
 * 支持横竖屏显示。<br/>
   -- Support for landscape and vertical screen display switch.
 
-##功能展示
+## 功能展示
 <h5>1. 显示和退出图片浏览器的动画效果</h5>
 ![image](https://github.com/chennyhuang/GIFSource/blob/master/111.gif)
 <hr/>
@@ -49,7 +49,7 @@ A framework similar to the sina weibo photo browser.
 <hr/>
 
 
-###创建图片浏览器
+### 创建图片浏览器
 ```objc
 HZPhotoBrowser *browserVc = [[HZPhotoBrowser alloc] init];
 browserVc.sourceImagesContainerView = 原图的父控件;
@@ -61,14 +61,14 @@ browserVc.delegate = self;
 [browserVc show];
 ```
 
-###实现代理
+### 实现代理
 ```objc
 //临时占位图（thumbnail图）
 - (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index;
 //高清原图 （bmiddle图）
 - (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index;
 ```
-###如何使用这份代码具体请看HZTableViewController.m文件的实现
+### 如何使用这份代码具体请看HZTableViewController.m文件的实现
 
-##提示
+## 提示
 * 本框架纯ARC。主要目的是为了大家学习使用。
