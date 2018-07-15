@@ -47,12 +47,22 @@
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
+    
+    //处理下标可能越界的bug
+    _currentImageIndex = _currentImageIndex < 0 ? 0 : _currentImageIndex;
+    NSInteger count = _imageCount - 1;
+    if (count > 0) {
+        if (_currentImageIndex > count) {
+            _currentImageIndex = 0;
+        }
+    }
     [self setupScrollView];
     [self setupToolbars];
     [self addGestureRecognizer:self.singleTap];
     [self addGestureRecognizer:self.doubleTap];
     [self addGestureRecognizer:self.pan];
     self.photoBrowserView = _scrollView.subviews[self.currentImageIndex];
+   
 }
 
 - (void)layoutSubviews
@@ -86,7 +96,7 @@
 
 - (void)dealloc
 {
-    NSLog(@"图片浏览器销毁");
+//    NSLog(@"图片浏览器销毁");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -185,6 +195,23 @@
             NSLog(@"将要结束拖拽 -- 退出");
         }
     };
+}
+
+- (void)setCurrentImageIndex:(int)currentImageIndex{
+//    _currentImageIndex = currentImageIndex;
+    _currentImageIndex = currentImageIndex < 0 ? 0 : currentImageIndex;
+    NSInteger count0 = _imageCount;
+    NSInteger count1 = _imageArray.count;
+    if (count0 > 0) {
+        if (_currentImageIndex > count0) {
+            _currentImageIndex = 0;
+        }
+    }
+    if (count1 > 0) {
+        if (_currentImageIndex > count1) {
+            _currentImageIndex = 0;
+        }
+    }
 }
 
 #pragma mark private methods

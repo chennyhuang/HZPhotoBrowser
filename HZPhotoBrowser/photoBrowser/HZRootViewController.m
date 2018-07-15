@@ -31,7 +31,7 @@
     HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
     browser.isFullWidthForLandScape = YES;
     browser.isNeedLandscape = YES;
-
+    browser.currentImageIndex = 3;
     browser.imageArray = @[
                            @"http://ww2.sinaimg.cn/bmiddle/9ecab84ejw1emgd5nd6eaj20c80c8q4a.jpg",
                            @"http://ww2.sinaimg.cn/bmiddle/642beb18gw1ep3629gfm0g206o050b2a.gif",
@@ -43,7 +43,6 @@
                            @"http://ww2.sinaimg.cn/bmiddle/677febf5gw1erma104rhyj20k03dz16y.jpg",
                            @"http://ww4.sinaimg.cn/bmiddle/677febf5gw1erma1g5xd0j20k0esa7wj.jpg"
                            ];
-    browser.currentImageIndex = 3;
     [browser show];
 }
 @end

@@ -27,7 +27,7 @@
 //第二种展示方式（退出时不能回到原来的位置，默认回到屏幕正中央）直接传url,图片url列表必传
 @property (nonatomic,strong) NSArray *imageArray;
 
-//从第几张图片开始展示（第一种或者第二种方式展示都必须传）
+//从第几张图片开始展示，默认 0（第一种或者第二种方式展示都必须传）
 @property (nonatomic, assign) int currentImageIndex;
 //是否在横屏的时候直接满宽度，而不是满高度，一般是在有长图需求的时候设置为YES(默认值YES)
 @property (nonatomic, assign) BOOL isFullWidthForLandScape;

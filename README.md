@@ -1,74 +1,84 @@
 ## HZPhotoBrowser
-##
-目前的HZPhotoBrowserBUG比较多，整体思路上面可能有问题，我用了另外一种方式实现，这种方式比较完善，建议大家使用。
-地址如下：
-  https://github.com/chennyhuang/ptoto
 
-##tips
-据几位同学反映，图片在显示和隐藏的时候动画会出现错位情况。现对这种情况做出说明，首先这种情况的存在主要是由于convertRect坐标转换不正确导致，一般是直接用UITableviewController布局才会导致转换不正确。建议使用UIViewController + UITableview的方式布局。
+## 简介
+一个类似于新浪微博图片浏览器的框架。
 
-##简介
-一个类似于新浪微博图片浏览器的框架。<br/>
-A framework similar to the sina weibo photo browser.
+* 支持显示和隐藏动画。
+* 支持双击缩放，手势放大缩小。
+* 支持横竖屏切换。
+* 支持手势拉动退出，效果类似微博。
+* 支持长图展示。
+* 提供两种展示模式。
 
-* 支持显示和隐藏动画。<br/>
-  -- Support the show and hide animation effects
-* 支持双击缩放，手势放大缩小。<br/>
-  -- Supports double-click scaling, gestures to zoom in.
-* 支持图片存储。<br/>
-  -- Support photo storage.
-* 支持网络加载gif图片，长图滚动浏览。<br/>
-  -- Support network loading GIF images, scroll through long figure.
-* 支持横竖屏显示。<br/>
-  -- Support for landscape and vertical screen display switch.
 
-##功能展示
-<h5>1. 显示和退出图片浏览器的动画效果</h5>
-![image](https://github.com/chennyhuang/GIFSource/blob/master/111.gif)
+## 功能展示
+
+<h5>竖屏</h5>
+![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/style1.gif)
 <hr/>
 
-<h5>2. 双击放大缩小，手势捏合</h5>
-<h6>（解决双击时图片跳跃问题，现在双击放大图片比较流畅）</h6>
-![image](https://github.com/chennyhuang/GIFSource/blob/master/222.gif)
-<hr/>
-
-<h5>3. 显示gif图片</h5>
-![image](https://github.com/chennyhuang/GIFSource/blob/master/333.gif)
-<hr/>
-
-<h5>4.长图滚动浏览</h5>
-![iamge](https://github.com/chennyhuang/GIFSource/blob/master/444.gif)
-<hr/>
-
-<h5>5.放大至全屏无黑边</h5>
-![image](https://github.com/chennyhuang/GIFSource/blob/master/555.gif)
-<hr/>
-
-<h5>6.支持横屏</h5>
-![image](https://github.com/chennyhuang/GIFSource/blob/master/666.gif)
+<h5>横屏</h5>
+![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/style2.gif)
 <hr/>
 
 
-###创建图片浏览器
+### 创建图片浏览器
+#### 方式1
+* 直接传url数组，然后展示出来。调用方式简单，无需其他控件支持。
+* 具体代码参照 HZRootViewController.m -> - (IBAction)style2:(id)sender方法
 ```objc
-HZPhotoBrowser *browserVc = [[HZPhotoBrowser alloc] init];
-browserVc.sourceImagesContainerView = 原图的父控件;
-browserVc.imageCount = 图片总数;
-browserVc.currentImageIndex = 当前图片index;
-// 代理
-browserVc.delegate = self;
-// 展示图片浏览器
-[browserVc show];
+HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+browser.isFullWidthForLandScape = YES;
+browser.isNeedLandscape = YES;
+browser.currentImageIndex = 3;
+browser.imageArray = @[
+@"http://ww2.sinaimg.cn/bmiddle/9ecab84ejw1emgd5nd6eaj20c80c8q4a.jpg",
+@"http://ww2.sinaimg.cn/bmiddle/642beb18gw1ep3629gfm0g206o050b2a.gif",
+@"http://ww4.sinaimg.cn/bmiddle/9e9cb0c9jw1ep7nlyu8waj20c80kptae.jpg",
+@"http://ww3.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr1xydcj20gy0o9q6s.jpg",
+@"http://ww2.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr2n1jjj20gy0o9tcc.jpg",
+@"http://ww4.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr4nndfj20gy0o9q6i.jpg",
+@"http://ww3.sinaimg.cn/bmiddle/8e88b0c1gw1e9lpr57tn9j20gy0obn0f.jpg",
+@"http://ww2.sinaimg.cn/bmiddle/677febf5gw1erma104rhyj20k03dz16y.jpg",
+@"http://ww4.sinaimg.cn/bmiddle/677febf5gw1erma1g5xd0j20k0esa7wj.jpg"
+];
+[browser show];
 ```
 
-###实现代理
+#### 方式2
+##### 步骤
+###### 1.自定义九图控件，在九图控件的item点击事件里面调起图片浏览器。具体代码参照HZPhotoGroup类。
+###### 关键代码
 ```objc
-//临时占位图（thumbnail图）
-- (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index;
-//高清原图 （bmiddle图）
-- (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index;
+//启动图片浏览器
+HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+browser.isFullWidthForLandScape = YES;
+browser.isNeedLandscape = YES;
+browser.sourceImagesContainerView = self; // 原图的父控件
+browser.currentImageIndex = (int)button.tag;
+browser.imageCount = self.urlArray.count; // 图片总数
+browser.delegate = self;
+[browser show];
 ```
-###如何使用这份代码具体请看HZTableViewController.m文件的实现
+```objc
+//实现photobrowser代理方法
+// 返回临时占位图片（即原来的小图）
+- (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
+{
+return [self.subviews[index] currentImage];
+}
 
-##提示
-* 本框架纯ARC。主要目的是为了大家学习使用。
+// 返回高质量图片的url
+- (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+{
+NSString *urlStr = [self.urlArray[index] stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+return [NSURL URLWithString:urlStr];
+}
+```
+###### 2.将九图控件添加到tableview的cell上。cell的代码参照HZTableViewCell类。
+###### 3.cell添加到tableview上面。
+
+### tips
+#### 要想实现上面的方式2，不可能像上面介绍的方式1一样，初始化一下图片浏览器，然后传入图片url数组，调起图片浏览器就完了。必须自定义九图控件。
+#### 关于九图控件的布局，和里面item使用的view的类型，各人根据自己的需求自己定义。
+#### 项目中使用 SDWebImage 4.0.0以上版本加载图片。

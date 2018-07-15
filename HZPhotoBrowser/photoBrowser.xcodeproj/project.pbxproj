@@ -176,8 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				57190A2020FAFE0100948D7B /* HZPhotoGroup.h */,
-				57190A2120FAFE0100948D7B /* HZTableViewCell.h */,
 				57190A2220FAFE0100948D7B /* HZPhotoGroup.m */,
+				57190A2120FAFE0100948D7B /* HZTableViewCell.h */,
 				57190A2320FAFE0100948D7B /* HZTableViewCell.m */,
 			);
 			path = views;

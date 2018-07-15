@@ -80,8 +80,8 @@
     browser.isFullWidthForLandScape = YES;
     browser.isNeedLandscape = YES;
     browser.sourceImagesContainerView = self; // 原图的父控件
-    browser.imageCount = self.urlArray.count; // 图片总数
     browser.currentImageIndex = (int)button.tag;
+    browser.imageCount = self.urlArray.count; // 图片总数
     browser.delegate = self;
     [browser show];
 }
