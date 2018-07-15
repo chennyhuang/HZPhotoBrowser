@@ -14,11 +14,13 @@
 ## 功能展示
 
 #### 竖屏
-![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/style1.gif)
+![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/1.gif)
 <hr/>
 
+![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/2.gif)
+
 #### 横屏
-![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/style2.gif)
+![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/3.gif)
 <hr/>
 
 
