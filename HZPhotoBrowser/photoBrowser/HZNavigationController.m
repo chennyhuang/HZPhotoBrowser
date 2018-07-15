@@ -1,31 +1,33 @@
 //
 //  HZNavigationController.m
-//  photoBrowser
+//  HZPhotoBrowser
 //
-//  Created by huangzhenyu on 15/7/2.
-//  Copyright (c) 2015年 eamon. All rights reserved.
+//  Created by huangzhenyu on 15-2-4.
+//  Copyright (c) 2015年 huangzhenyu. All rights reserved.
 //
 
 #import "HZNavigationController.h"
 
+@interface HZNavigationController ()
+
+@end
+
 @implementation HZNavigationController
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    return [self.topViewController shouldAutorotateToInterfaceOrientation:interfaceOrientation];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
 }
 
-- (BOOL)shouldAutorotate
+- (void)viewDidLoad
 {
-    return self.topViewController.shouldAutorotate;
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
 }
 
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return self.topViewController.supportedInterfaceOrientations;
-}
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.topViewController.preferredStatusBarStyle;
-}
 @end

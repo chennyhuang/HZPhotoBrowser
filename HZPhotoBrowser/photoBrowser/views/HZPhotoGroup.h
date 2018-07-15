@@ -1,5 +1,5 @@
 //
-//  HZNavigationController.h
+//  HZPhotoGroup.h
 //  HZPhotoBrowser
 //
 //  Created by huangzhenyu on 15-2-4.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HZNavigationController : UINavigationController
+@interface HZPhotoGroup : UIView 
+
+@property (nonatomic, strong) NSArray<NSString *> *urlArray;
 
 @end

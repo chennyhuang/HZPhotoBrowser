@@ -1,15 +1,15 @@
 //
 //  AppDelegate.m
-//  photoBrowser
+//  ptoto
 //
-//  Created by huangzhenyu on 15/6/23.
-//  Copyright (c) 2015年 eamon. All rights reserved.
+//  Created by huangzhenyu on 15/12/1.
+//  Copyright © 2015年 huangzhenyu. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "HZTableViewController.h"
 #import "HZNavigationController.h"
-
+#import "HZTableViewController.h"
+#import "HZRootViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -20,10 +20,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    HZTableViewController *tableview = [[HZTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    HZNavigationController *nav = [[HZNavigationController alloc] initWithRootViewController:tableview];
+    HZNavigationController *nav = [[HZNavigationController alloc] initWithRootViewController:[[HZRootViewController alloc] init]];
     self.window.rootViewController = nav;
-    
     [self.window makeKeyAndVisible];
     return YES;
 }
