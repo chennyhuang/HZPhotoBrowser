@@ -13,11 +13,11 @@
 
 ## 功能展示
 
-<h5>竖屏</h5>
+#### 竖屏
 ![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/style1.gif)
 <hr/>
 
-<h5>横屏</h5>
+#### 横屏
 ![image](https://github.com/chennyhuang/HZPhotoBrowser/blob/master/style2.gif)
 <hr/>
 
