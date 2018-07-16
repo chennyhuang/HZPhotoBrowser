@@ -25,7 +25,9 @@
 @implementation HZPhotoBrowser 
 {
     UIScrollView *_scrollView;
-    BOOL _hasShowedFistView;
+    BOOL _hasShowedFistView;//开始展示图片浏览器
+    BOOL _hideAnimationBegin;//开始执行退出动画
+    BOOL _beginDragImageView;//开始拖拽
     UILabel *_indexLabel;
     UIButton *_saveButton;
     UIView *_contentView;
@@ -368,6 +370,7 @@
 
 - (void)showFirstImage
 {
+    self.userInteractionEnabled = NO;
     if (_photoBrowserStyle == HZPhotoBrowserStyleDefault) {
         UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
         CGRect rect = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
@@ -403,6 +406,7 @@
             _scrollView.hidden = NO;
             _indexLabel.hidden = NO;
             _saveButton.hidden = NO;
+            self.userInteractionEnabled = YES;
         }];
     } else {
 //        HZPhotoBrowserShowImageAnimationDuration
@@ -414,6 +418,7 @@
             _contentView.alpha = 1;
         } completion:^(BOOL finished) {
             _hasShowedFistView = YES;
+            self.userInteractionEnabled = YES;
         }];
     }
 }
@@ -454,6 +459,8 @@
 //    HZPhotoBrowserView *photoBrowserView = _scrollView.subviews[self.currentImageIndex];
 //    UIImageView *currentImageView = photoBrowserView.imageview;
 //    NSUInteger currentIndex = currentImageView.tag;
+    _hideAnimationBegin = YES;
+    self.userInteractionEnabled = NO;
     CGRect targetTemp;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
 
@@ -513,7 +520,6 @@
     _indexLabel.hidden = YES;
     [self addSubview:self.tempView];
     _photoBrowserView.hidden = YES;
-//    NSLog(@"photoBrowserView -- %@",_photoBrowserView);
     self.backgroundColor = [UIColor clearColor];
     _contentView.backgroundColor = [UIColor clearColor];
     UIView *view = [self getSourceView];
@@ -605,15 +611,30 @@
 //    CGPoint locationPoint = [panGesture locationInView:self];
     CGPoint velocity = [panGesture velocityInView:self];//速度
     
-//    NSLog(@"开始拖动");
     switch (panGesture.state) {
         case UIGestureRecognizerStateBegan:
         {
-            [self prepareForHide];
+//            NSLog(@"开始拖拽 速度 ： %f",fabs(velocity.y));
+            if(fabs(velocity.y) > 1000 && !_beginDragImageView){
+//                        NSLog(@"速度太快 %f",fabs(velocity.y));
+                if (!_hideAnimationBegin) {
+                    [self prepareForHide];
+                    [self hideAnimation];
+                }
+                self.pan.enabled = NO;
+                return;
+            } else {
+//                NSLog(@"开始拖拽");
+                _beginDragImageView = YES;
+                [self prepareForHide];
+            }
+            
         }
             break;
         case UIGestureRecognizerStateChanged:
         {
+//            NSLog(@"开始拖拽 速度 ： %f",fabs(velocity.y));
+//            NSLog(@"状态变化");
             _saveButton.hidden = YES;
             _indexLabel.hidden = YES;
             double delt = 1 - fabs(transPoint.y) / self.frame.size.height;
@@ -626,10 +647,12 @@
         }
             break;
         case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled:
+//        case UIGestureRecognizerStateCancelled:
         {
             if (fabs(transPoint.y) > 220 || fabs(velocity.y) > 500) {//退出图片浏览器
-                [self hideAnimation];
+                if (!_hideAnimationBegin) {
+                    [self hideAnimation];
+                }
             } else {//回到原来的位置
                 [self bounceToOrigin];
             }
