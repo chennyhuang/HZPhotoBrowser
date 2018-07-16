@@ -26,8 +26,6 @@
 {
     UIScrollView *_scrollView;
     BOOL _hasShowedFistView;//开始展示图片浏览器
-    BOOL _hideAnimationBegin;//开始执行退出动画
-    BOOL _beginDragImageView;//开始拖拽
     UILabel *_indexLabel;
     UIButton *_saveButton;
     UIView *_contentView;
@@ -49,7 +47,6 @@
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
-    
     //处理下标可能越界的bug
     _currentImageIndex = _currentImageIndex < 0 ? 0 : _currentImageIndex;
     NSInteger count = _imageCount - 1;
@@ -64,7 +61,6 @@
     [self addGestureRecognizer:self.doubleTap];
     [self addGestureRecognizer:self.pan];
     self.photoBrowserView = _scrollView.subviews[self.currentImageIndex];
-   
 }
 
 - (void)layoutSubviews
@@ -120,7 +116,6 @@
     if (!_singleTap) {
         _singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoClick:)];
         _singleTap.numberOfTapsRequired = 1;
-//        _singleTap.numberOfTouchesRequired = 1;
         _singleTap.delaysTouchesBegan = YES;
         //只能有一个手势存在
         [_singleTap requireGestureRecognizerToFail:self.doubleTap];
@@ -191,16 +186,13 @@
     __weak typeof(self) weakSelf = self;
     _photoBrowserView.scrollViewWillEndDragging = ^(CGPoint velocity,CGPoint offset) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
-//        NSLog(@"%f  %f",velocity.y,offset.y);
         if (((velocity.y < -2 && offset.y < 0) || offset.y < -100)) {
             [strongSelf hidePhotoBrowser];
-            NSLog(@"将要结束拖拽 -- 退出");
         }
     };
 }
 
 - (void)setCurrentImageIndex:(int)currentImageIndex{
-//    _currentImageIndex = currentImageIndex;
     _currentImageIndex = currentImageIndex < 0 ? 0 : currentImageIndex;
     NSInteger count0 = _imageCount;
     NSInteger count1 = _imageArray.count;
@@ -286,7 +278,6 @@
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.pagingEnabled = YES;
     [self addSubview:_scrollView];
-    
     for (int i = 0; i < self.imageCount; i++) {
         HZPhotoBrowserView *view = [[HZPhotoBrowserView alloc] init];
         view.isFullWidthForLandScape = self.isFullWidthForLandScape;
@@ -294,7 +285,6 @@
         [_scrollView addSubview:view];
     }
     [self setupImageOfImageViewForIndex:self.currentImageIndex];
-    
 }
 
 // 加载图片
@@ -327,10 +317,8 @@
     self.orientation = orientation;
     if (UIDeviceOrientationIsLandscape(orientation)) {
         if (self.bounds.size.width < self.bounds.size.height) {
-            NSLog(@"横屏 还原");
             [currentView.scrollview setZoomScale:1.0 animated:YES];//还原
         }
-        [self cancelPrepareForHide];
         [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.transform = (orientation==UIDeviceOrientationLandscapeRight)?CGAffineTransformMakeRotation(M_PI*1.5):CGAffineTransformMakeRotation(M_PI/2);
             if (iPhoneX) {
@@ -347,10 +335,8 @@
         
     }else if (orientation==UIDeviceOrientationPortrait){
         if (self.bounds.size.width > self.bounds.size.height) {
-            NSLog(@"竖屏 还原");
             [currentView.scrollview setZoomScale:1.0 animated:YES];//还原
         }
-        [self cancelPrepareForHide];
         [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.transform = (orientation==UIDeviceOrientationPortrait)?CGAffineTransformIdentity:CGAffineTransformMakeRotation(M_PI);
             if (iPhoneX) {
@@ -409,7 +395,6 @@
             self.userInteractionEnabled = YES;
         }];
     } else {
-//        HZPhotoBrowserShowImageAnimationDuration
         _photoBrowserView.alpha = 0;
         _contentView.alpha = 0;
         [UIView animateWithDuration:0.2 animations:^{
@@ -456,10 +441,6 @@
 }
 
 - (void)hideAnimation{
-//    HZPhotoBrowserView *photoBrowserView = _scrollView.subviews[self.currentImageIndex];
-//    UIImageView *currentImageView = photoBrowserView.imageview;
-//    NSUInteger currentIndex = currentImageView.tag;
-    _hideAnimationBegin = YES;
     self.userInteractionEnabled = NO;
     CGRect targetTemp;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -476,7 +457,6 @@
         targetTemp = CGRectMake(window.center.x, window.center.y, 0, 0);
     }
     self.window.windowLevel = UIWindowLevelNormal;//显示状态栏
-//    NSLog(@"tempVeiw -- %@",NSStringFromCGRect(_tempView.frame));
     [UIView animateWithDuration:HZPhotoBrowserHideImageAnimationDuration animations:^{
         if (_photoBrowserStyle == HZPhotoBrowserStyleDefault) {
             _tempView.transform = CGAffineTransformInvert(self.transform);
@@ -501,19 +481,6 @@
     return nil;
 }
 
-- (void)cancelPrepareForHide{
-    [self.coverView removeFromSuperview];
-    _saveButton.hidden = NO;
-    _indexLabel.hidden = NO;
-    if (_tempView) {
-        [_tempView removeFromSuperview];
-        _tempView = nil;
-    }
-    _scrollView.hidden = NO;
-    self.backgroundColor = HZPhotoBrowserBackgrounColor;
-    _contentView.backgroundColor = HZPhotoBrowserBackgrounColor;
-}
-
 - (void)prepareForHide{
     [_contentView insertSubview:self.coverView belowSubview:self];
     _saveButton.hidden = YES;
@@ -527,10 +494,12 @@
 }
 
 - (void)bounceToOrigin{
+    self.userInteractionEnabled = NO;
     [UIView animateWithDuration:HZPhotoBrowserHideImageAnimationDuration animations:^{
         self.tempView.transform = CGAffineTransformIdentity;
         _coverView.alpha = 1;
     } completion:^(BOOL finished) {
+        self.userInteractionEnabled = YES;
         _saveButton.hidden = NO;
         _indexLabel.hidden = NO;
         [_tempView removeFromSuperview];
@@ -603,7 +572,6 @@
     if (UIDeviceOrientationIsLandscape(orientation)) {//横屏不允许拉动图片
         return;
     }
-    
     //transPoint : 手指在视图上移动的位置（x,y）向下和向右为正，向上和向左为负。
     //locationPoint ： 手指在视图上的位置（x,y）就是手指在视图本身坐标系的位置。
     //velocity： 手指在视图上移动的速度（x,y）, 正负也是代表方向。
@@ -614,27 +582,11 @@
     switch (panGesture.state) {
         case UIGestureRecognizerStateBegan:
         {
-//            NSLog(@"开始拖拽 速度 ： %f",fabs(velocity.y));
-            if(fabs(velocity.y) > 1000 && !_beginDragImageView){
-//                        NSLog(@"速度太快 %f",fabs(velocity.y));
-                if (!_hideAnimationBegin) {
-                    [self prepareForHide];
-                    [self hideAnimation];
-                }
-                self.pan.enabled = NO;
-                return;
-            } else {
-//                NSLog(@"开始拖拽");
-                _beginDragImageView = YES;
-                [self prepareForHide];
-            }
-            
+            [self prepareForHide];
         }
             break;
         case UIGestureRecognizerStateChanged:
         {
-//            NSLog(@"开始拖拽 速度 ： %f",fabs(velocity.y));
-//            NSLog(@"状态变化");
             _saveButton.hidden = YES;
             _indexLabel.hidden = YES;
             double delt = 1 - fabs(transPoint.y) / self.frame.size.height;
@@ -650,9 +602,7 @@
 //        case UIGestureRecognizerStateCancelled:
         {
             if (fabs(transPoint.y) > 220 || fabs(velocity.y) > 500) {//退出图片浏览器
-                if (!_hideAnimationBegin) {
-                    [self hideAnimation];
-                }
+                [self hideAnimation];
             } else {//回到原来的位置
                 [self bounceToOrigin];
             }
