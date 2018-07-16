@@ -327,39 +327,42 @@
         if (self.bounds.size.width < self.bounds.size.height) {
             NSLog(@"横屏 还原");
             [currentView.scrollview setZoomScale:1.0 animated:YES];//还原
-            [self cancelPrepareForHide];
-            [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-                self.transform = (orientation==UIDeviceOrientationLandscapeRight)?CGAffineTransformMakeRotation(M_PI*1.5):CGAffineTransformMakeRotation(M_PI/2);
-                if (iPhoneX) {
-                    self.center = [UIApplication sharedApplication].keyWindow.center;
-                    self.bounds = CGRectMake(0, 0,  KAppHeight - kStatusBar_Height - kBottomSafeHeight, kAPPWidth);
-                } else {
-                    self.bounds = CGRectMake(0, 0, KAppHeight, kAPPWidth);
-                }
-                [self setNeedsLayout];
-                [self layoutIfNeeded];
-            } completion:^(BOOL finished) {
-            
-            }];
         }
+        [self cancelPrepareForHide];
+        [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.transform = (orientation==UIDeviceOrientationLandscapeRight)?CGAffineTransformMakeRotation(M_PI*1.5):CGAffineTransformMakeRotation(M_PI/2);
+            if (iPhoneX) {
+                self.center = [UIApplication sharedApplication].keyWindow.center;
+                self.bounds = CGRectMake(0, 0,  KAppHeight - kStatusBar_Height - kBottomSafeHeight, kAPPWidth);
+            } else {
+                self.bounds = CGRectMake(0, 0, KAppHeight, kAPPWidth);
+            }
+            [self setNeedsLayout];
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+        
+        }];
+        
     }else if (orientation==UIDeviceOrientationPortrait){
         if (self.bounds.size.width > self.bounds.size.height) {
             NSLog(@"竖屏 还原");
             [currentView.scrollview setZoomScale:1.0 animated:YES];//还原
-            [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-                self.transform = (orientation==UIDeviceOrientationPortrait)?CGAffineTransformIdentity:CGAffineTransformMakeRotation(M_PI);
-                if (iPhoneX) {
-                    self.bounds = CGRectMake(0, 0, kAPPWidth, KAppHeight - kStatusBar_Height - kBottomSafeHeight);
-                } else {
-                    self.bounds = CGRectMake(0, 0, kAPPWidth, KAppHeight);
-                }
-                
-                [self setNeedsLayout];
-                [self layoutIfNeeded];
-            } completion:^(BOOL finished) {
-                
-            }];
         }
+        [self cancelPrepareForHide];
+        [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.transform = (orientation==UIDeviceOrientationPortrait)?CGAffineTransformIdentity:CGAffineTransformMakeRotation(M_PI);
+            if (iPhoneX) {
+                self.bounds = CGRectMake(0, 0, kAPPWidth, KAppHeight - kStatusBar_Height - kBottomSafeHeight);
+            } else {
+                self.bounds = CGRectMake(0, 0, kAPPWidth, KAppHeight);
+            }
+            
+            [self setNeedsLayout];
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            
+        }];
+        
     }
 }
 
