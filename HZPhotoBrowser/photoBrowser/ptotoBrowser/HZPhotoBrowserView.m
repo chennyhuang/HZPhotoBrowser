@@ -15,7 +15,6 @@
 @property (nonatomic, strong) NSURL *imageUrl;
 @property (nonatomic, strong) UIImage *placeHolderImage;
 @property (nonatomic, strong) UIButton *reloadButton;
-@property (nonatomic, assign) BOOL hasLoadedImage;
 @end
 
 @implementation HZPhotoBrowserView
@@ -31,8 +30,13 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    _waitingView.center = CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height * 0.5);
+    CGFloat selfW = self.bounds.size.width;
+    CGFloat selfH = self.bounds.size.height;
+    _waitingView.center = CGPointMake(selfW * 0.5, selfH * 0.5);
     _scrollview.frame = self.bounds;
+    CGFloat reloadBtnW = 200;
+    CGFloat reloadBtnH = 40;
+    _reloadButton.frame = CGRectMake((selfW - reloadBtnW)*0.5, (selfH - reloadBtnH)*0.5, reloadBtnW, reloadBtnH);
     [self adjustFrame];
 }
 
@@ -98,16 +102,16 @@
         
         if (error) {
             //图片加载失败的处理，此处可以自定义各种操作（...）
-            
+            strongSelf.hasLoadedImage = NO;//图片加载失败
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             strongSelf.reloadButton = button;
             button.layer.cornerRadius = 2;
             button.clipsToBounds = YES;
-            button.bounds = CGRectMake(0, 0, 200, 40);
-            button.center = CGPointMake(self.bounds.size.height * 0.5, self.bounds.size.height * 0.5);
+//            button.bounds = CGRectMake(0, 0, 200, 40);
+//            button.center = CGPointMake(self.bounds.size.height * 0.5, self.bounds.size.height * 0.5);
             button.titleLabel.font = [UIFont systemFontOfSize:14];
             button.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.3f];
-            [button setTitle:@"原图加载失败，点击重新加载" forState:UIControlStateNormal];
+            [button setTitle:@"图片加载失败，点击重新加载" forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button addTarget:strongSelf action:@selector(reloadImage) forControlEvents:UIControlEventTouchUpInside];
             

@@ -13,7 +13,6 @@
 		57190A7320FAFE0200948D7B /* HZRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57190A2520FAFE0100948D7B /* HZRootViewController.m */; };
 		57190A7420FAFE0200948D7B /* HZRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57190A2620FAFE0100948D7B /* HZRootViewController.xib */; };
 		57190A7520FAFE0200948D7B /* HZWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57190A2820FAFE0100948D7B /* HZWaitingView.m */; };
-		57190A7620FAFE0200948D7B /* whiteplaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 57190A2920FAFE0100948D7B /* whiteplaceholder.png */; };
 		57190A7720FAFE0200948D7B /* HZPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 57190A2B20FAFE0100948D7B /* HZPhotoBrowser.m */; };
 		57190A7820FAFE0200948D7B /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 57190A3020FAFE0100948D7B /* UIImage+WebP.m */; };
 		57190A7920FAFE0200948D7B /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 57190A3120FAFE0100948D7B /* MKAnnotationView+WebCache.m */; };
@@ -51,6 +50,7 @@
 		EE3A82CB1B38E9D6001F0E67 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE3A82CA1B38E9D6001F0E67 /* Images.xcassets */; };
 		EE3A82CE1B38E9D6001F0E67 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE3A82CC1B38E9D6001F0E67 /* LaunchScreen.xib */; };
 		EE3A82DA1B38E9D7001F0E67 /* photoBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A82D91B38E9D7001F0E67 /* photoBrowserTests.m */; };
+		EE510E252110020A002EC0DF /* HZPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE510E242110020A002EC0DF /* HZPhotoBrowser.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +74,6 @@
 		57190A2520FAFE0100948D7B /* HZRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZRootViewController.m; sourceTree = "<group>"; };
 		57190A2620FAFE0100948D7B /* HZRootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HZRootViewController.xib; sourceTree = "<group>"; };
 		57190A2820FAFE0100948D7B /* HZWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZWaitingView.m; sourceTree = "<group>"; };
-		57190A2920FAFE0100948D7B /* whiteplaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteplaceholder.png; sourceTree = "<group>"; };
 		57190A2A20FAFE0100948D7B /* HZPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZPhotoBrowserConfig.h; sourceTree = "<group>"; };
 		57190A2B20FAFE0100948D7B /* HZPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZPhotoBrowser.m; sourceTree = "<group>"; };
 		57190A2C20FAFE0100948D7B /* HZPhotoBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZPhotoBrowserView.h; sourceTree = "<group>"; };
@@ -152,6 +151,7 @@
 		EE3A82D31B38E9D7001F0E67 /* photoBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = photoBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3A82D81B38E9D7001F0E67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE3A82D91B38E9D7001F0E67 /* photoBrowserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = photoBrowserTests.m; sourceTree = "<group>"; };
+		EE510E242110020A002EC0DF /* HZPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HZPhotoBrowser.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +186,7 @@
 		57190A2720FAFE0100948D7B /* ptotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				57190A2E20FAFE0100948D7B /* SDWebImage */,
+				EE510E242110020A002EC0DF /* HZPhotoBrowser.bundle */,
 				57190A6B20FAFE0100948D7B /* HZPhotoBrowser.h */,
 				57190A2B20FAFE0100948D7B /* HZPhotoBrowser.m */,
 				57190A2C20FAFE0100948D7B /* HZPhotoBrowserView.h */,
@@ -201,7 +201,6 @@
 		57190A2E20FAFE0100948D7B /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
-				57190A2920FAFE0100948D7B /* whiteplaceholder.png */,
 				57190A2F20FAFE0100948D7B /* SDAnimatedImageRep.h */,
 				57190A3020FAFE0100948D7B /* UIImage+WebP.m */,
 				57190A3120FAFE0100948D7B /* MKAnnotationView+WebCache.m */,
@@ -286,6 +285,7 @@
 		EE3A82BC1B38E9D6001F0E67 /* photoBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				57190A2E20FAFE0100948D7B /* SDWebImage */,
 				57190A1F20FAFE0100948D7B /* views */,
 				57190A6F20FAFE0200948D7B /* AppDelegate.h */,
 				57190A1D20FAFE0100948D7B /* AppDelegate.m */,
@@ -413,9 +413,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE3A82CE1B38E9D6001F0E67 /* LaunchScreen.xib in Resources */,
+				EE510E252110020A002EC0DF /* HZPhotoBrowser.bundle in Resources */,
 				57190A7420FAFE0200948D7B /* HZRootViewController.xib in Resources */,
 				EE3A82CB1B38E9D6001F0E67 /* Images.xcassets in Resources */,
-				57190A7620FAFE0200948D7B /* whiteplaceholder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

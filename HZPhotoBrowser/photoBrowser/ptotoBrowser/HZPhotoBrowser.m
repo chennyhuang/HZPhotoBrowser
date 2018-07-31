@@ -18,6 +18,7 @@
 @property (nonatomic,strong) UIPanGestureRecognizer *pan;
 @property (nonatomic,strong) UIImageView *tempView;
 @property (nonatomic,strong) UIView *coverView;
+@property (nonatomic,strong) UILabel *tipLabel;
 @property (nonatomic,strong) HZPhotoBrowserView *photoBrowserView;
 @property (nonatomic,assign) UIDeviceOrientation orientation;
 @property (nonatomic,assign) HZPhotoBrowserStyle photoBrowserStyle;
@@ -66,12 +67,12 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+//    NSLog(@"layoutSubviews -- ");
     CGRect rect = self.bounds;
     rect.size.width += HZPhotoBrowserImageViewMargin * 2;
     _scrollView.bounds = rect;
     _scrollView.center = CGPointMake(self.bounds.size.width *0.5, self.bounds.size.height *0.5);
-    
+    NSLog(@"%@",NSStringFromCGRect(_scrollView.frame));
     CGFloat y = 0;
     __block CGFloat w = _scrollView.frame.size.width - HZPhotoBrowserImageViewMargin * 2;
     CGFloat h = _scrollView.frame.size.height;
@@ -90,6 +91,7 @@
     _indexLabel.bounds = CGRectMake(0, 0, 80, 30);
     _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 30);
     _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70, 55, 30);
+    _tipLabel.frame = CGRectMake((self.bounds.size.width - 150)*0.5, (self.bounds.size.height - 40)*0.5, 150, 40);
 }
 
 - (void)dealloc
@@ -246,27 +248,37 @@
 {
     int index = _scrollView.contentOffset.x / _scrollView.bounds.size.width;
     HZPhotoBrowserView *currentView = _scrollView.subviews[index];
-    UIImageWriteToSavedPhotosAlbum(currentView.imageview.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    if (currentView.hasLoadedImage) {
+        UIImageWriteToSavedPhotosAlbum(currentView.imageview.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    } else {
+        [self showTip:HZPhotoBrowserSaveImageFailText];
+    }
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 {
+    if (error) {
+        [self showTip:HZPhotoBrowserSaveImageFailText];
+    } else {
+        [self showTip:HZPhotoBrowserSaveImageSuccessText];
+    }
+}
+
+- (void)showTip:(NSString *)tipStr{
+    if (_tipLabel) {
+        [_tipLabel removeFromSuperview];
+        _tipLabel = nil;
+    }
     UILabel *label = [[UILabel alloc] init];
+    _tipLabel = label;
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.90f];
     label.layer.cornerRadius = 5;
     label.clipsToBounds = YES;
-    label.bounds = CGRectMake(0, 0, 150, 40);
-    label.center = self.center;
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont boldSystemFontOfSize:20];
-    [[UIApplication sharedApplication].keyWindow addSubview:label];
-    [[UIApplication sharedApplication].keyWindow bringSubviewToFront:label];
-    if (error) {
-        label.text = HZPhotoBrowserSaveImageFailText;
-    }   else {
-        label.text = HZPhotoBrowserSaveImageSuccessText;
-    }
+    label.text = tipStr;
+    [self addSubview:label];
     [label performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:1.0];
 }
 

@@ -13,6 +13,8 @@
 @property (nonatomic,strong) UIImageView *imageview;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, assign) BOOL beginLoadingImage;
+/**判断图片是否加载成功*/
+@property (nonatomic, assign) BOOL hasLoadedImage;
 @property (nonatomic,assign) CGSize zoomImageSize;
 @property (nonatomic,assign) CGPoint scrollOffset;
 @property (nonatomic, strong) void(^scrollViewDidScroll)(CGPoint offset);

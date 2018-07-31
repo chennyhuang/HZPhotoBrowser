@@ -10,6 +10,7 @@
 #import "HZPhotoGroup.h"
 #import "UIButton+WebCache.h"
 #import "HZPhotoBrowser.h"
+#import "HZPhotoBrowserConfig.h"
 
 #define HZPhotoGroupImageMargin 15
 
@@ -42,8 +43,8 @@
         //让图片不变形，以适应按钮宽高，按钮中图片部分内容可能看不到
         btn.imageView.contentMode = UIViewContentModeScaleAspectFill;
         btn.clipsToBounds = YES;
-        
-        [btn sd_setImageWithURL:[NSURL URLWithString:obj] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"whiteplaceholder"]];
+        //默认占位图whiteplaceholder必须设置，否则在小图都没有加载成功时候，点击展示图片浏览器会崩溃
+        [btn sd_setImageWithURL:[NSURL URLWithString:obj] forState:UIControlStateNormal placeholderImage:HZPhotoBrowserImage(@"whiteplaceholder.png")];
         btn.tag = idx;
         
         [btn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];

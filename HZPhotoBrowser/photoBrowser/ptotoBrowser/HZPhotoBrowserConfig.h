@@ -29,11 +29,15 @@ typedef enum {
 //底部安全距离 iphoneX->34 其他 0
 #define kBottomSafeHeight (iPhoneX?34.0f:0.0f)
 
+// 图片路径
+#define HZPhotoBrowserSrc(file)  [@"HZPhotoBrowser.bundle" stringByAppendingPathComponent:file]
+#define HZPhotoBrowserImage(file)     [UIImage imageNamed:HZPhotoBrowserSrc(file)]
+
 // 图片保存成功提示文字
-#define HZPhotoBrowserSaveImageSuccessText @" 保存成功 ";
+#define HZPhotoBrowserSaveImageSuccessText @" 保存成功 "
 
 // 图片保存失败提示文字
-#define HZPhotoBrowserSaveImageFailText @" 保存失败 ";
+#define HZPhotoBrowserSaveImageFailText @" 保存失败 "
 
 // browser背景颜色
 #define HZPhotoBrowserBackgrounColor [UIColor colorWithRed:0 green:0 blue:0 alpha:1]
