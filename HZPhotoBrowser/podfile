@@ -1,0 +1,9 @@
+platform:ios,'8.0'
+
+pod 'SDWebImage'
+pod 'FLAnimatedImage'
+pod 'SDWebImage/GIF'
+
+target 'photoBrowser' do
+
+end

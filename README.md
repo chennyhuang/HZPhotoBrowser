@@ -8,6 +8,7 @@
 * 支持横竖屏切换。
 * 支持手势拉动退出，效果类似微博。
 * 支持长图展示。
+*支持展示GIF
 * 提供两种展示模式。
 * 适配 iphone X
 
@@ -84,4 +85,5 @@ return [NSURL URLWithString:urlStr];
 ### tips
 #### 要想实现上面的方式2，不可能像上面介绍的方式1一样，初始化一下图片浏览器，然后传入图片url数组，调起图片浏览器就完了。必须自定义九图控件。
 #### 关于九图控件的布局，和里面item使用的view的类型，各人根据自己的需求自己定义。
-#### 项目中使用 SDWebImage 4.0.0及以上版本加载网络图片。
+#### 项目中使用 SDWebImage 4.0.0及以上版本加载网络图片。使用FLAnimatedImageView加载GIF。
+#### GIF展示使用 FLAnimatedImageView。

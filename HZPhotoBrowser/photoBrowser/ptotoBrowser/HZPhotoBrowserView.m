@@ -8,7 +8,7 @@
 
 #import "HZPhotoBrowserView.h"
 #import "HZWaitingView.h"
-#import "UIImageView+WebCache.h"
+//#import "UIImageView+WebCache.h"
 
 @interface HZPhotoBrowserView() <UIScrollViewDelegate>
 @property (nonatomic,strong) HZWaitingView *waitingView;
@@ -55,15 +55,24 @@
     return _scrollview;
 }
 
-- (UIImageView *)imageview
+- (FLAnimatedImageView *)imageview
 {
     if (!_imageview) {
-        _imageview = [[UIImageView alloc] init];
+        _imageview = [[FLAnimatedImageView alloc] init];
         _imageview.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
         _imageview.userInteractionEnabled = YES;
     }
     return _imageview;
 }
+//- (UIImageView *)imageview
+//{
+//    if (!_imageview) {
+//        _imageview = [[UIImageView alloc] init];
+//        _imageview.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+//        _imageview.userInteractionEnabled = YES;
+//    }
+//    return _imageview;
+//}
 
 - (void)setProgress:(CGFloat)progress
 {

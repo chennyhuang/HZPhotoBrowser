@@ -7,10 +7,9 @@
 //
 
 #import "HZPhotoBrowser.h"
-#import "UIImageView+WebCache.h"
+//#import <UIImageView+WebCache.h>
 #import "HZPhotoBrowserView.h"
 #import "HZPhotoBrowserConfig.h"
-
 
 @interface HZPhotoBrowser()
 @property (nonatomic,strong) UITapGestureRecognizer *singleTap;

@@ -11,7 +11,8 @@
 #import "UIButton+WebCache.h"
 #import "HZPhotoBrowser.h"
 #import "HZPhotoBrowserConfig.h"
-
+#import <FLAnimatedImageView+WebCache.h>
+#import <FLAnimatedImage/FLAnimatedImageView.h>
 #define HZPhotoGroupImageMargin 15
 
 @interface HZPhotoGroup () <HZPhotoBrowserDelegate>
@@ -37,18 +38,23 @@
     _urlArray = urlArray;
     //清除所有子控件，根据数据重新布局
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     [urlArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
-        UIButton *btn = [[UIButton alloc] init];
+        FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+        imageView.userInteractionEnabled = YES;
         
         //让图片不变形，以适应按钮宽高，按钮中图片部分内容可能看不到
-        btn.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        btn.clipsToBounds = YES;
-        //默认占位图whiteplaceholder必须设置，否则在小图都没有加载成功时候，点击展示图片浏览器会崩溃
-        [btn sd_setImageWithURL:[NSURL URLWithString:obj] forState:UIControlStateNormal placeholderImage:HZPhotoBrowserImage(@"whiteplaceholder.png")];
-        btn.tag = idx;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         
-        [btn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:btn];
+        //默认占位图whiteplaceholder必须设置，否则在小图都没有加载成功时候，点击展示图片浏览器会崩溃
+        [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:HZPhotoBrowserImage(@"whiteplaceholder.png")];
+        
+        imageView.tag = idx;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [imageView addGestureRecognizer:tap];
+        
+        [self addSubview:imageView];
     }];
 }
 
@@ -74,14 +80,15 @@
     self.frame = CGRectMake(10, 10, 280, totalRowCount * (HZPhotoGroupImageMargin + h));
 }
 
-- (void)buttonClick:(UIButton *)button
+- (void)tap:(UIGestureRecognizer *)gesture
 {
+    FLAnimatedImageView *imageView = (FLAnimatedImageView *)gesture.view;
     //启动图片浏览器
     HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
     browser.isFullWidthForLandScape = YES;
     browser.isNeedLandscape = YES;
     browser.sourceImagesContainerView = self; // 原图的父控件
-    browser.currentImageIndex = (int)button.tag;
+    browser.currentImageIndex = (int)imageView.tag;
     browser.imageCount = self.urlArray.count; // 图片总数
     browser.delegate = self;
     [browser show];
@@ -91,7 +98,8 @@
 // 返回临时占位图片（即原来的小图）
 - (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
-    return [self.subviews[index] currentImage];
+    FLAnimatedImageView *imageView = (FLAnimatedImageView *)self.subviews[index];
+    return imageView.image;
 }
 
 // 返回高质量图片的url

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <FLAnimatedImageView+WebCache.h>
 @interface HZPhotoBrowserView : UIView
 @property (nonatomic,strong) UIScrollView *scrollview;
-@property (nonatomic,strong) UIImageView *imageview;
+//@property (nonatomic,strong) UIImageView *imageview;
+@property (nonatomic,strong) FLAnimatedImageView *imageview;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, assign) BOOL beginLoadingImage;
 /**判断图片是否加载成功*/
