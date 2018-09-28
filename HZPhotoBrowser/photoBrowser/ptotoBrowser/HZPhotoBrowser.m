@@ -10,6 +10,8 @@
 //#import <UIImageView+WebCache.h>
 #import "HZPhotoBrowserView.h"
 #import "HZPhotoBrowserConfig.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface HZPhotoBrowser()
 @property (nonatomic,strong) UITapGestureRecognizer *singleTap;
@@ -248,7 +250,32 @@
     int index = _scrollView.contentOffset.x / _scrollView.bounds.size.width;
     HZPhotoBrowserView *currentView = _scrollView.subviews[index];
     if (currentView.hasLoadedImage) {
-        UIImageWriteToSavedPhotosAlbum(currentView.imageview.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        FLAnimatedImageView *animatedImageView;
+        if ([currentView.imageview isKindOfClass:[FLAnimatedImageView class]]) {
+            animatedImageView = (FLAnimatedImageView *)currentView.imageview;
+            NSData *imageData = animatedImageView.animatedImage.data;
+            if (!imageData) {
+                imageData = UIImagePNGRepresentation(animatedImageView.image);
+            }
+            if (!imageData) {
+                [self showTip:HZPhotoBrowserSaveImageFailText];
+                return;
+            }
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            NSDictionary *metadata = @{@"UTI":(__bridge NSString *)kUTTypeImage};
+            [library writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+                if (error) {
+                    // "保存图片失败"
+                    [self showTip:HZPhotoBrowserSaveImageFailText];
+                }else{
+                    //保存图片成功"
+                    [self showTip:HZPhotoBrowserSaveImageSuccessText];
+                }
+            }] ;
+        } else {
+            UIImageWriteToSavedPhotosAlbum(currentView.imageview.image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        }
+        
     } else {
         [self showTip:HZPhotoBrowserSaveImageFailText];
     }
