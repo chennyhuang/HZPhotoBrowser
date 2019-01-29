@@ -89,8 +89,8 @@
     if (!_hasShowedFistView) {
         [self showFirstImage];
     }
-    _indexLabel.bounds = CGRectMake(0, 0, 80, 30);
-    _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 30);
+    _indexLabel.frame = CGRectMake((self.bounds.size.width - 80)*0.5, kStatusBar_Height, 80, 30);
+    
     _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70, 55, 30);
     _tipLabel.frame = CGRectMake((self.bounds.size.width - 150)*0.5, (self.bounds.size.height - 40)*0.5, 150, 40);
 }
@@ -156,7 +156,7 @@
         if (UIDeviceOrientationIsLandscape(orientation)) {//横屏
             
             //处理长图,图片太长会导致旋转动画飞掉
-            if (tempImageH > KAppHeight) {
+            if (tempImageH > SCREEN_HEIGHTL) {
                 tempImageH = tempImageH > (tempImageW * 1.5)? (tempImageW * 1.5):tempImageH;
                 if (fabs(tempImageY) > tempImageH) {
                     tempImageY = 0;
@@ -186,11 +186,11 @@
 
 - (void)setPhotoBrowserView:(HZPhotoBrowserView *)photoBrowserView{
     _photoBrowserView = photoBrowserView;
-    __weak typeof(self) weakSelf = self;
+    @weakify(self);
     _photoBrowserView.scrollViewWillEndDragging = ^(CGPoint velocity,CGPoint offset) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
+        @strongify(self);
         if (((velocity.y < -2 && offset.y < 0) || offset.y < -100)) {
-            [strongSelf hidePhotoBrowser];
+            [self hidePhotoBrowser];
         }
     };
 }
@@ -221,7 +221,7 @@
     indexLabel.font = [UIFont boldSystemFontOfSize:20];
     indexLabel.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.3f];
     indexLabel.bounds = CGRectMake(0, 0, 80, 30);
-    indexLabel.center = CGPointMake(kAPPWidth * 0.5, 30);
+    indexLabel.center = CGPointMake(SCREEN_WIDTHL * 0.5, 30);
     indexLabel.layer.cornerRadius = 15;
     indexLabel.clipsToBounds = YES;
     if (self.imageCount > 1) {
@@ -359,12 +359,7 @@
         }
         [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.transform = (orientation==UIDeviceOrientationLandscapeRight)?CGAffineTransformMakeRotation(M_PI*1.5):CGAffineTransformMakeRotation(M_PI/2);
-            if (iPhoneX) {
-                self.center = [UIApplication sharedApplication].keyWindow.center;
-                self.bounds = CGRectMake(0, 0,  KAppHeight - kStatusBar_Height - kBottomSafeHeight, kAPPWidth);
-            } else {
-                self.bounds = CGRectMake(0, 0, KAppHeight, kAPPWidth);
-            }
+            self.bounds = CGRectMake(0, 0, SCREEN_HEIGHTL, SCREEN_WIDTHL);
             [self setNeedsLayout];
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
@@ -377,12 +372,7 @@
         }
         [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.transform = (orientation==UIDeviceOrientationPortrait)?CGAffineTransformIdentity:CGAffineTransformMakeRotation(M_PI);
-            if (iPhoneX) {
-                self.bounds = CGRectMake(0, 0, kAPPWidth, KAppHeight - kStatusBar_Height - kBottomSafeHeight);
-            } else {
-                self.bounds = CGRectMake(0, 0, kAPPWidth, KAppHeight);
-            }
-            
+            self.frame = CGRectMake(0, 0, SCREEN_WIDTHL, SCREEN_HEIGHTL);
             [self setNeedsLayout];
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
@@ -395,6 +385,7 @@
 - (void)showFirstImage
 {
     self.userInteractionEnabled = NO;
+    @weakify(self);
     if (_photoBrowserStyle == HZPhotoBrowserStyleDefault) {
         UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
         CGRect rect = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
@@ -420,27 +411,31 @@
         _scrollView.hidden = YES;
         _indexLabel.hidden = YES;
         _saveButton.hidden = YES;
+        
         [UIView animateWithDuration:HZPhotoBrowserShowImageAnimationDuration animations:^{
             //将点击的临时imageview动画放大到和目标imageview一样大
             tempView.frame = targetTemp;
         } completion:^(BOOL finished) {
+            @strongify(self);
             //动画完成后，删除临时imageview，让目标imageview显示
-            _hasShowedFistView = YES;
+            self->_hasShowedFistView = YES;
             [tempView removeFromSuperview];
-            _scrollView.hidden = NO;
-            _indexLabel.hidden = NO;
-            _saveButton.hidden = NO;
+            self->_scrollView.hidden = NO;
+            self->_indexLabel.hidden = NO;
+            self->_saveButton.hidden = NO;
             self.userInteractionEnabled = YES;
         }];
     } else {
         _photoBrowserView.alpha = 0;
         _contentView.alpha = 0;
         [UIView animateWithDuration:0.2 animations:^{
+             @strongify(self);
             //将点击的临时imageview动画放大到和目标imageview一样大
-            _photoBrowserView.alpha = 1;
-            _contentView.alpha = 1;
+            self->_photoBrowserView.alpha = 1;
+            self->_contentView.alpha = 1;
         } completion:^(BOOL finished) {
-            _hasShowedFistView = YES;
+             @strongify(self);
+            self->_hasShowedFistView = YES;
             self.userInteractionEnabled = YES;
         }];
     }
@@ -455,7 +450,6 @@
     } else {
         return nil;
     }
-    
     return nil;
 }
 
@@ -495,18 +489,20 @@
         targetTemp = CGRectMake(window.center.x, window.center.y, 0, 0);
     }
     self.window.windowLevel = UIWindowLevelNormal;//显示状态栏
+    @weakify(self);
     [UIView animateWithDuration:HZPhotoBrowserHideImageAnimationDuration animations:^{
-        if (_photoBrowserStyle == HZPhotoBrowserStyleDefault) {
-            _tempView.transform = CGAffineTransformInvert(self.transform);
+        @strongify(self);
+        if (self->_photoBrowserStyle == HZPhotoBrowserStyleDefault) {
+            self->_tempView.transform = CGAffineTransformInvert(self.transform);
         }
-        _coverView.alpha = 0;
-        _tempView.frame = targetTemp;
+        self->_coverView.alpha = 0;
+        self->_tempView.frame = targetTemp;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
-        [_tempView removeFromSuperview];
-        [_contentView removeFromSuperview];
-        _tempView = nil;
-        _contentView = nil;
+        [self->_tempView removeFromSuperview];
+        [self->_contentView removeFromSuperview];
+        self->_tempView = nil;
+        self->_contentView = nil;
         sourceView.hidden = NO;
     }];
 }
@@ -532,21 +528,24 @@
 }
 
 - (void)bounceToOrigin{
+    @weakify(self);
     self.userInteractionEnabled = NO;
     [UIView animateWithDuration:HZPhotoBrowserHideImageAnimationDuration animations:^{
+        @strongify(self);
         self.tempView.transform = CGAffineTransformIdentity;
-        _coverView.alpha = 1;
+        self->_coverView.alpha = 1;
     } completion:^(BOOL finished) {
+        @strongify(self);
         self.userInteractionEnabled = YES;
-        _saveButton.hidden = NO;
-        _indexLabel.hidden = NO;
-        [_tempView removeFromSuperview];
-        [_coverView removeFromSuperview];
-        _tempView = nil;
-        _coverView = nil;
-        _photoBrowserView.hidden = NO;
+        self->_saveButton.hidden = NO;
+        self->_indexLabel.hidden = NO;
+        [self->_tempView removeFromSuperview];
+        [self->_coverView removeFromSuperview];
+        self->_tempView = nil;
+        self->_coverView = nil;
+        self->_photoBrowserView.hidden = NO;
         self.backgroundColor = HZPhotoBrowserBackgrounColor;
-        _contentView.backgroundColor = HZPhotoBrowserBackgrounColor;
+        self->_contentView.backgroundColor = HZPhotoBrowserBackgrounColor;
         UIView *view = [self getSourceView];
         view.hidden = NO;
     }];
@@ -660,12 +659,8 @@
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     _contentView.center = window.center;
     _contentView.bounds = window.bounds;
-
-    if (iPhoneX) {
-        self.frame = CGRectMake(0, kStatusBar_Height,kAPPWidth,KAppHeight - kStatusBar_Height - kBottomSafeHeight);
-    } else {
-        self.frame = _contentView.bounds;
-    }
+    
+    self.frame = CGRectMake(0, 0, SCREEN_WIDTHL, SCREEN_HEIGHTL);
     window.windowLevel = UIWindowLevelStatusBar+10.0f;//隐藏状态栏
     [_contentView addSubview:self];
     

@@ -20,14 +20,72 @@ typedef enum {
 #define kMinZoomScale 0.6f
 #define kMaxZoomScale 2.0f
 
-#define kAPPWidth [UIScreen mainScreen].bounds.size.width
-#define KAppHeight [UIScreen mainScreen].bounds.size.height
 
-#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#ifndef    weakify
+#if __has_feature(objc_arc)
+
+#define weakify( x ) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x; \
+_Pragma("clang diagnostic pop")
+
+#else
+
+#define weakify( x ) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+autoreleasepool{} __block __typeof__(x) __block_##x##__ = x; \
+_Pragma("clang diagnostic pop")
+
+#endif
+#endif
+
+#ifndef    strongify
+#if __has_feature(objc_arc)
+
+#define strongify( x ) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+try{} @finally{} __typeof__(x) x = __weak_##x##__; \
+_Pragma("clang diagnostic pop")
+
+#else
+
+#define strongify( x ) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+try{} @finally{} __typeof__(x) x = __block_##x##__; \
+_Pragma("clang diagnostic pop")
+
+#endif
+#endif
+
+
+#define SCREEN_HEIGHTL [UIScreen mainScreen].bounds.size.height
+#define SCREEN_WIDTHL [UIScreen mainScreen].bounds.size.width
+
+//#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define UI_IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define UI_IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define UI_IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+//判断iPHoneXr
+#define SCREENSIZE_IS_XR ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size) && !UI_IS_IPAD : NO)
+//判断iPHoneX、iPHoneXs
+#define SCREENSIZE_IS_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) && !UI_IS_IPAD : NO)
+#define SCREENSIZE_IS_XS ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) && !UI_IS_IPAD : NO)
+//判断iPhoneXs Max
+#define SCREENSIZE_IS_XS_MAX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) && !UI_IS_IPAD : NO)
+
+//判断是否为 iPhoneXS  Max，iPhoneXS，iPhoneXR，iPhoneX。根据iPhoneXS Max，iPhoneXS，iPhoneXR，iPhoneX 的宽高比近似做的判断
+#define KIsiPhoneHear ((int)((SCREEN_HEIGHTL/SCREEN_WIDTHL)*100) == 216)?YES:NO
+
+
 //状态栏高度，iphoneX->44 其他 20
 #define kStatusBar_Height [UIApplication sharedApplication].statusBarFrame.size.height
 //底部安全距离 iphoneX->34 其他 0
-#define kBottomSafeHeight (iPhoneX?34.0f:0.0f)
+#define kBottomSafeHeight (KIsiPhoneHear?34.0f:0.0f)
 
 // 图片路径
 #define HZPhotoBrowserSrc(file)  [@"HZPhotoBrowser.bundle" stringByAppendingPathComponent:file]

@@ -8,7 +8,6 @@
 
 #import "HZPhotoBrowserView.h"
 #import "HZWaitingView.h"
-//#import "UIImageView+WebCache.h"
 
 @interface HZPhotoBrowserView() <UIScrollViewDelegate>
 @property (nonatomic,strong) HZWaitingView *waitingView;
@@ -18,6 +17,9 @@
 @end
 
 @implementation HZPhotoBrowserView
+//- (void)dealloc{
+//    NSLog(@"photoBrowserView dealloc");
+//}
 #pragma mark recyle
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -41,8 +43,7 @@
 }
 
 #pragma mark getter setter
-- (UIScrollView *)scrollview
-{
+- (UIScrollView *)scrollview {
     if (!_scrollview) {
         _scrollview = [[UIScrollView alloc] init];
         _scrollview.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
@@ -51,6 +52,13 @@
         [_scrollview addSubview:self.imageview];
         _scrollview.delegate = self;
         _scrollview.clipsToBounds = YES;
+        if (@available(iOS 11.0, *)) {
+            if ([_scrollview respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+                _scrollview.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            }
+        } else {
+            // Fallback on earlier versions
+        }
     }
     return _scrollview;
 }
@@ -64,15 +72,6 @@
     }
     return _imageview;
 }
-//- (UIImageView *)imageview
-//{
-//    if (!_imageview) {
-//        _imageview = [[UIImageView alloc] init];
-//        _imageview.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-//        _imageview.userInteractionEnabled = YES;
-//    }
-//    return _imageview;
-//}
 
 - (void)setProgress:(CGFloat)progress
 {
@@ -96,40 +95,36 @@
     [self addSubview:waitingView];
     
     //HZWebImage加载图片
-    __weak __typeof(self)weakSelf = self;
+    @weakify(self);
     [_imageview sd_setImageWithURL:url placeholderImage:placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
-        __strong __typeof(weakSelf)strongSelf = weakSelf;
-        
+        @strongify(self);
         //在主线程做UI更新
         dispatch_async(dispatch_get_main_queue(), ^{
-            strongSelf.waitingView.progress = (CGFloat)receivedSize / expectedSize;
+            self.waitingView.progress = (CGFloat)receivedSize / expectedSize;
         });
         
     } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        __strong __typeof(weakSelf)strongSelf = weakSelf;
-        [_waitingView removeFromSuperview];
-        
+        @strongify(self);
+        [self.waitingView removeFromSuperview];
         if (error) {
             //图片加载失败的处理，此处可以自定义各种操作（...）
-            strongSelf.hasLoadedImage = NO;//图片加载失败
+            self.hasLoadedImage = NO;//图片加载失败
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            strongSelf.reloadButton = button;
+            self.reloadButton = button;
             button.layer.cornerRadius = 2;
             button.clipsToBounds = YES;
-//            button.bounds = CGRectMake(0, 0, 200, 40);
-//            button.center = CGPointMake(self.bounds.size.height * 0.5, self.bounds.size.height * 0.5);
             button.titleLabel.font = [UIFont systemFontOfSize:14];
             button.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.3f];
             [button setTitle:@"图片加载失败，点击重新加载" forState:UIControlStateNormal];
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [button addTarget:strongSelf action:@selector(reloadImage) forControlEvents:UIControlEventTouchUpInside];
+            [button addTarget:self action:@selector(reloadImage) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:button];
             return;
         }
         //加载成功重新计算frame,解决长图可能显示不正确的问题
         [self setNeedsLayout];
-        strongSelf.hasLoadedImage = YES;//图片加载成功
+        self.hasLoadedImage = YES;//图片加载成功
     }];
 }
 

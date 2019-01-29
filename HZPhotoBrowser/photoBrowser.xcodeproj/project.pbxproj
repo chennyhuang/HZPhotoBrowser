@@ -250,7 +250,7 @@
 				TargetAttributes = {
 					EE3A82B91B38E9D6001F0E67 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = CU5KU23LFX;
+						DevelopmentTeam = G9AY48N5HQ;
 					};
 					EE3A82D21B38E9D7001F0E67 = {
 						CreatedOnToolsVersion = 6.3;
@@ -452,7 +452,7 @@
 			baseConfigurationReference = 04C16B8708E2A2BB3F3B5B66 /* Pods-photoBrowser.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CU5KU23LFX;
+				DEVELOPMENT_TEAM = G9AY48N5HQ;
 				INFOPLIST_FILE = photoBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -464,7 +464,7 @@
 			baseConfigurationReference = 72C07F00290D85F191D60131 /* Pods-photoBrowser.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CU5KU23LFX;
+				DEVELOPMENT_TEAM = G9AY48N5HQ;
 				INFOPLIST_FILE = photoBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
