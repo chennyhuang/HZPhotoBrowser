@@ -8,7 +8,7 @@
 
 
 typedef enum {
-    HZWaitingViewModeLoopDiagram, // 环形
+    HZWaitingViewModeLoopDiagram = 0, // 环形
     HZWaitingViewModePieDiagram // 饼型
 } HZWaitingViewMode;
 
@@ -62,8 +62,8 @@ _Pragma("clang diagnostic pop")
 #endif
 
 
-#define SCREEN_HEIGHTL [UIScreen mainScreen].bounds.size.height
-#define SCREEN_WIDTHL [UIScreen mainScreen].bounds.size.width
+#define kSCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+#define kSCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 
 //#define iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
@@ -79,17 +79,17 @@ _Pragma("clang diagnostic pop")
 #define SCREENSIZE_IS_XS_MAX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) && !UI_IS_IPAD : NO)
 
 //判断是否为 iPhoneXS  Max，iPhoneXS，iPhoneXR，iPhoneX。根据iPhoneXS Max，iPhoneXS，iPhoneXR，iPhoneX 的宽高比近似做的判断
-#define KIsiPhoneHear ((int)((SCREEN_HEIGHTL/SCREEN_WIDTHL)*100) == 216)?YES:NO
+#define KIsiPhoneHear (((int)((kSCREEN_HEIGHT/kSCREEN_WIDTH)*100) == 216)?YES:NO)
 
 
 //状态栏高度，iphoneX->44 其他 20
-#define kStatusBar_Height [UIApplication sharedApplication].statusBarFrame.size.height
+#define kStatusBar_Height ([UIApplication sharedApplication].statusBarFrame.size.height)
 //底部安全距离 iphoneX->34 其他 0
 #define kBottomSafeHeight (KIsiPhoneHear?34.0f:0.0f)
 
 // 图片路径
-#define HZPhotoBrowserSrc(file)  [@"HZPhotoBrowser.bundle" stringByAppendingPathComponent:file]
-#define HZPhotoBrowserImage(file)     [UIImage imageNamed:HZPhotoBrowserSrc(file)]
+#define HZPhotoBrowserSrc(file)  ([@"HZPhotoBrowser.bundle" stringByAppendingPathComponent:file])
+#define HZPhotoBrowserImage(file)     ([UIImage imageNamed:HZPhotoBrowserSrc(file)])
 
 // 图片保存成功提示文字
 #define HZPhotoBrowserSaveImageSuccessText @" 保存成功 "
@@ -98,7 +98,7 @@ _Pragma("clang diagnostic pop")
 #define HZPhotoBrowserSaveImageFailText @" 保存失败 "
 
 // browser背景颜色
-#define HZPhotoBrowserBackgrounColor [UIColor colorWithRed:0 green:0 blue:0 alpha:1]
+#define HZPhotoBrowserBackgrounColor ([UIColor colorWithRed:0 green:0 blue:0 alpha:1])
 
 // browser中图片间的margin
 #define HZPhotoBrowserImageViewMargin 10
@@ -113,12 +113,12 @@ _Pragma("clang diagnostic pop")
 #define HZPhotoBrowserHideImageAnimationDuration 0.35f
 
 // 图片下载进度指示进度显示样式（HZWaitingViewModeLoopDiagram 环形，HZWaitingViewModePieDiagram 饼型）
-#define HZWaitingViewProgressMode HZWaitingViewModeLoopDiagram
+#define kWaitingViewProgressMode HZWaitingViewModePieDiagram
 
 // 图片下载进度指示器背景色
-#define HZWaitingViewBackgroundColor [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]
+#define HZWaitingViewBackgroundColor ([UIColor colorWithRed:0 green:0 blue:0 alpha:0.7])
 //#define HZWaitingViewBackgroundColor [UIColor clearColor]
 
 // 图片下载进度指示器内部控件间的间距
-#define HZWaitingViewItemMargin 10
+#define HZWaitingViewItemMargin 6
 

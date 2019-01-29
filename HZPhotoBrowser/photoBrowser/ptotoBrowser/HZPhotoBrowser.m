@@ -156,7 +156,7 @@
         if (UIDeviceOrientationIsLandscape(orientation)) {//横屏
             
             //处理长图,图片太长会导致旋转动画飞掉
-            if (tempImageH > SCREEN_HEIGHTL) {
+            if (tempImageH > kSCREEN_HEIGHT) {
                 tempImageH = tempImageH > (tempImageW * 1.5)? (tempImageW * 1.5):tempImageH;
                 if (fabs(tempImageY) > tempImageH) {
                     tempImageY = 0;
@@ -221,7 +221,7 @@
     indexLabel.font = [UIFont boldSystemFontOfSize:20];
     indexLabel.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.3f];
     indexLabel.bounds = CGRectMake(0, 0, 80, 30);
-    indexLabel.center = CGPointMake(SCREEN_WIDTHL * 0.5, 30);
+    indexLabel.center = CGPointMake(kSCREEN_WIDTH * 0.5, 30);
     indexLabel.layer.cornerRadius = 15;
     indexLabel.clipsToBounds = YES;
     if (self.imageCount > 1) {
@@ -359,7 +359,7 @@
         }
         [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.transform = (orientation==UIDeviceOrientationLandscapeRight)?CGAffineTransformMakeRotation(M_PI*1.5):CGAffineTransformMakeRotation(M_PI/2);
-            self.bounds = CGRectMake(0, 0, SCREEN_HEIGHTL, SCREEN_WIDTHL);
+            self.bounds = CGRectMake(0, 0, kSCREEN_HEIGHT, kSCREEN_WIDTH);
             [self setNeedsLayout];
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
@@ -372,7 +372,7 @@
         }
         [UIView animateWithDuration:kRotateAnimationDuration delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.transform = (orientation==UIDeviceOrientationPortrait)?CGAffineTransformIdentity:CGAffineTransformMakeRotation(M_PI);
-            self.frame = CGRectMake(0, 0, SCREEN_WIDTHL, SCREEN_HEIGHTL);
+            self.frame = CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT);
             [self setNeedsLayout];
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
@@ -660,7 +660,7 @@
     _contentView.center = window.center;
     _contentView.bounds = window.bounds;
     
-    self.frame = CGRectMake(0, 0, SCREEN_WIDTHL, SCREEN_HEIGHTL);
+    self.frame = CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT);
     window.windowLevel = UIWindowLevelStatusBar+10.0f;//隐藏状态栏
     [_contentView addSubview:self];
     

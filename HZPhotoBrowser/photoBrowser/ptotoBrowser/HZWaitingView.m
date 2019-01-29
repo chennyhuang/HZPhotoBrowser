@@ -8,15 +8,12 @@
 
 #import "HZWaitingView.h"
 @implementation HZWaitingView
-
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = HZWaitingViewBackgroundColor;
         self.clipsToBounds = YES;
-        self.mode = HZWaitingViewModeLoopDiagram;
     }
     return self;
 }
@@ -46,13 +43,10 @@
     CGFloat xCenter = rect.size.width * 0.5;
     CGFloat yCenter = rect.size.height * 0.5;
     [[UIColor whiteColor] set];
-    
-    switch (self.mode) {
+    switch (kWaitingViewProgressMode) {
         case HZWaitingViewModePieDiagram:
             {
                 CGFloat radius = MIN(rect.size.width * 0.5, rect.size.height * 0.5) - HZWaitingViewItemMargin;
-                
-                
                 CGFloat w = radius * 2 + HZWaitingViewItemMargin;
                 CGFloat h = w;
                 CGFloat x = (rect.size.width - w) * 0.5;
@@ -66,7 +60,7 @@
                 CGFloat to = - M_PI * 0.5 + self.progress * M_PI * 2 + 0.001; // 初始值
                 CGContextAddArc(ctx, xCenter, yCenter, radius, - M_PI * 0.5, to, 1);
                 CGContextClosePath(ctx);
-                
+
                 CGContextFillPath(ctx);
             }
             break;

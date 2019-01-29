@@ -10,8 +10,5 @@
 #import "HZPhotoBrowserConfig.h"
 
 @interface HZWaitingView : UIView
-
 @property (nonatomic, assign) CGFloat progress;
-@property (nonatomic, assign) int mode;
-
 @end

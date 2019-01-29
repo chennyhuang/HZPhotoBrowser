@@ -89,7 +89,7 @@
     _placeHolderImage = placeholder;
     //添加进度指示器
     HZWaitingView *waitingView = [[HZWaitingView alloc] init];
-    waitingView.mode = HZWaitingViewModeLoopDiagram;
+//    waitingView.mode = HZWaitingViewModeLoopDiagram;
     waitingView.center = CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height * 0.5);
     self.waitingView = waitingView;
     [self addSubview:waitingView];
