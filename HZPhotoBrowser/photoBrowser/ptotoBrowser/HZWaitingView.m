@@ -38,44 +38,56 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-    CGFloat xCenter = rect.size.width * 0.5;
-    CGFloat yCenter = rect.size.height * 0.5;
     [[UIColor whiteColor] set];
     switch (kWaitingViewProgressMode) {
         case HZWaitingViewModePieDiagram:
-            {
-                CGFloat radius = MIN(rect.size.width * 0.5, rect.size.height * 0.5) - HZWaitingViewItemMargin;
-                CGFloat w = radius * 2 + HZWaitingViewItemMargin;
-                CGFloat h = w;
-                CGFloat x = (rect.size.width - w) * 0.5;
-                CGFloat y = (rect.size.height - h) * 0.5;
-                CGContextAddEllipseInRect(ctx, CGRectMake(x, y, w, h));
-                CGContextFillPath(ctx);
-                
-                [HZWaitingViewBackgroundColor set];
-                CGContextMoveToPoint(ctx, xCenter, yCenter);
-                CGContextAddLineToPoint(ctx, xCenter, 0);
-                CGFloat to = - M_PI * 0.5 + self.progress * M_PI * 2 + 0.001; // 初始值
-                CGContextAddArc(ctx, xCenter, yCenter, radius, - M_PI * 0.5, to, 1);
-                CGContextClosePath(ctx);
-
-                CGContextFillPath(ctx);
-            }
+            [self drawPipe:rect];
             break;
-            
         default:
-            {
-                CGContextSetLineWidth(ctx, 4);
-                CGContextSetLineCap(ctx, kCGLineCapRound);
-                CGFloat to = - M_PI * 0.5 + self.progress * M_PI * 2 + 0.05; // 初始值0.05
-                CGFloat radius = MIN(rect.size.width, rect.size.height) * 0.5 - HZWaitingViewItemMargin;
-                CGContextAddArc(ctx, xCenter, yCenter, radius, - M_PI * 0.5, to, 0);
-                CGContextStrokePath(ctx);
-            }
+            [self drawCircle:rect];
             break;
     }
+}
+
+//画圆
+- (void)drawCircle:(CGRect)rect{
+    CGFloat radius = rect.size.width / 2;
+    CGPoint center  = CGPointMake(rect.size.width/2, rect.size.height/2);
+    CGFloat end = -M_PI_2 + self.progress * M_PI * 2;
+    CGFloat lineW = 3;
+    UIBezierPath *bezier = [UIBezierPath bezierPathWithArcCenter:center radius:radius-lineW startAngle:-M_PI_2 endAngle:end clockwise:YES];
+    bezier.lineWidth = lineW;
+    bezier.lineCapStyle = kCGLineCapRound;
+    UIColor *whiteColor = [UIColor whiteColor];
+    [whiteColor set];
+    [bezier stroke];
+}
+
+- (void)drawPipe:(CGRect)rect{
+    CGFloat radius = rect.size.width / 2;
+    CGPoint center  = CGPointMake(rect.size.width/2, rect.size.height/2);
+    UIColor *whiteColor = [UIColor whiteColor];
+    
+    //cornerRadius：圆角半径（绘制矩形的左上角开始，也就是0，5）
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:radius];
+    circlePath.lineWidth = 2;
+    [whiteColor set];
+    [circlePath stroke];
+    
+    
+    CGFloat end = -M_PI_2 + self.progress * M_PI * 2;
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius - 4 startAngle:-M_PI_2 endAngle:end clockwise:YES];
+    
+    [whiteColor set];
+    //添加一根线到圆心
+    [path addLineToPoint:center];
+    //关闭路径，是从终点到起点
+    [path closePath];
+    [path stroke];
+    
+    //使用填充，默认就会自动关闭路径，（终点到起点）
+    [path fill];
 }
 
 @end

@@ -116,8 +116,7 @@ _Pragma("clang diagnostic pop")
 #define kWaitingViewProgressMode HZWaitingViewModePieDiagram
 
 // 图片下载进度指示器背景色
-#define HZWaitingViewBackgroundColor ([UIColor colorWithRed:0 green:0 blue:0 alpha:0.7])
-//#define HZWaitingViewBackgroundColor [UIColor clearColor]
+#define HZWaitingViewBackgroundColor ([UIColor colorWithRed:0 green:0 blue:0 alpha:0.2])
 
 // 图片下载进度指示器内部控件间的间距
 #define HZWaitingViewItemMargin 6

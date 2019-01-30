@@ -9,7 +9,7 @@
 #import "HZRootViewController.h"
 #import "HZTableViewController.h"
 #import "HZPhotoBrowser.h"
-
+#import <SDWebImageManager.h>
 @interface HZRootViewController ()
 
 @end
@@ -46,4 +46,13 @@
 
     [browser show];
 }
+
+- (IBAction)clearCache:(id)sender {
+    // 清除图片缓存，便于测试
+    [[SDWebImageManager sharedManager].imageCache clearMemory];
+    [[SDWebImageManager sharedManager].imageCache clearDiskOnCompletion:^{
+        
+    }];
+}
+
 @end
