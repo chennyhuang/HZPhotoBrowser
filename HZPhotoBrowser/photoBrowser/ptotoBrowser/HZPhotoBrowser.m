@@ -554,14 +554,16 @@
 #pragma mark - scrollview代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    int index = (scrollView.contentOffset.x + _scrollView.bounds.size.width * 0.5) / _scrollView.bounds.size.width;
-    _indexLabel.text = [NSString stringWithFormat:@"%d/%ld", index + 1, (long)self.imageCount];
-    long left = index - 1;
-    long right = index + 1;
+    NSInteger index = (scrollView.contentOffset.x + _scrollView.bounds.size.width * 0.5) / _scrollView.bounds.size.width;
+    NSLog(@"%ld",(long)index);
+    _indexLabel.text = [NSString stringWithFormat:@"%ld/%ld", index + 1, self.imageCount];
+    //预加载 前3张 后3张
+    NSInteger left = index - 3;
+    NSInteger right = index + 3;
     left = left>0?left : 0;
     right = right>self.imageCount?self.imageCount:right;
     
-    for (long i = left; i < right; i++) {
+    for (NSInteger i = left; i < right; i++) {
          [self setupImageOfImageViewForIndex:i];
     }
 }
