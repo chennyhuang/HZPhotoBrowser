@@ -16,6 +16,7 @@
 @required
 - (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index;
 - (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index;
+- (UIView *)sourceViewWithIdex:(NSInteger)index;
 @end
 
 
