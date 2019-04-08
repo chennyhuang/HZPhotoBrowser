@@ -335,6 +335,7 @@
     } else {
         view.imageview.image = [self placeholderImageForIndex:index];
     }
+    [view setNeedsLayout];
     view.beginLoadingImage = YES;
 }
 
@@ -387,11 +388,16 @@
     self.userInteractionEnabled = NO;
     @weakify(self);
     if (_photoBrowserStyle == HZPhotoBrowserStyleDefault) {
-        UIView *sourceView = self.sourceImagesContainerView.subviews[self.currentImageIndex];
+        UIView *sourceView = [self.delegate sourceViewWithIdex:self.currentImageIndex];
         CGRect rect = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
         UIImageView *tempView = [[UIImageView alloc] init];
         tempView.frame = rect;
-        tempView.image = [self placeholderImageForIndex:self.currentImageIndex];
+        if ([sourceView isKindOfClass:[UIImageView class]]) {
+            UIImage *sourceImage = [(UIImageView *)sourceView image];
+            tempView.image = sourceImage;
+        }else{
+            tempView.image = [self placeholderImageForIndex:self.currentImageIndex];
+        }
         [self addSubview:tempView];
         tempView.contentMode = UIViewContentModeScaleAspectFit;
         
@@ -483,7 +489,7 @@
     }
     if (_photoBrowserStyle == HZPhotoBrowserStyleDefault) {
         UIView *sourceView = [self getSourceView];
-       targetTemp = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
+        targetTemp = [self.sourceImagesContainerView convertRect:sourceView.frame toView:self];
     } else {
         //默认回到屏幕中央
         targetTemp = CGRectMake(window.center.x, window.center.y, 0, 0);
@@ -509,7 +515,7 @@
 
 - (UIView *)getSourceView{
     if (_currentImageIndex <= self.sourceImagesContainerView.subviews.count - 1) {
-        UIView *sourceView = self.sourceImagesContainerView.subviews[_currentImageIndex];
+        UIView *sourceView = [self.delegate sourceViewWithIdex:_currentImageIndex]; //self.sourceImagesContainerView.subviews[_currentImageIndex];
         return sourceView;
     }
     return nil;
@@ -555,7 +561,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSInteger index = (scrollView.contentOffset.x + _scrollView.bounds.size.width * 0.5) / _scrollView.bounds.size.width;
-    NSLog(@"%ld",(long)index);
     _indexLabel.text = [NSString stringWithFormat:@"%ld/%ld", index + 1, self.imageCount];
     //预加载 前3张 后3张
     NSInteger left = index - 3;
@@ -607,6 +612,7 @@
 
 #pragma mark 长按
 - (void)didPan:(UIPanGestureRecognizer *)panGesture {
+    
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
     if (UIDeviceOrientationIsLandscape(orientation)) {//横屏不允许拉动图片
         return;
@@ -638,9 +644,8 @@
         }
             break;
         case UIGestureRecognizerStateEnded:
-//        case UIGestureRecognizerStateCancelled:
         {
-            if (fabs(transPoint.y) > 220 || fabs(velocity.y) > 500) {//退出图片浏览器
+            if (fabs(transPoint.y) > 200 || fabs(velocity.y) > 500) {//退出图片浏览器
                 [self hideAnimation];
             } else {//回到原来的位置
                 [self bounceToOrigin];

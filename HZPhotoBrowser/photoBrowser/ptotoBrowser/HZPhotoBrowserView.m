@@ -8,7 +8,7 @@
 
 #import "HZPhotoBrowserView.h"
 #import "HZWaitingView.h"
-
+@import SDWebImage;
 @interface HZPhotoBrowserView() <UIScrollViewDelegate>
 @property (nonatomic,strong) HZWaitingView *waitingView;
 @property (nonatomic, strong) NSURL *imageUrl;
@@ -67,6 +67,7 @@
 {
     if (!_imageview) {
         _imageview = [[FLAnimatedImageView alloc] init];
+        _imageview.contentMode = UIViewContentModeScaleAspectFill;
         _imageview.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
         _imageview.userInteractionEnabled = YES;
     }
@@ -93,7 +94,7 @@
     waitingView.center = CGPointMake(self.bounds.size.width * 0.5, self.bounds.size.height * 0.5);
     self.waitingView = waitingView;
     [self addSubview:waitingView];
-    
+    _imageview.image = placeholder;
     //HZWebImage加载图片
     @weakify(self);
     [_imageview sd_setImageWithURL:url placeholderImage:placeholder options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
@@ -136,9 +137,7 @@
 
 - (void)adjustFrame
 {
-//    CGRect frame = self.scrollview.frame;
     CGRect frame = self.frame;
-//   NSLog(@"%@",NSStringFromCGRect(self.frame));
     if (self.imageview.image) {
         CGSize imageSize = self.imageview.image.size;//获得图片的size
         CGRect imageFrame = CGRectMake(0, 0, imageSize.width, imageSize.height);
@@ -146,6 +145,7 @@
             CGFloat ratio = frame.size.width/imageFrame.size.width;
             imageFrame.size.height = imageFrame.size.height*ratio;
             imageFrame.size.width = frame.size.width;
+            
         } else{
             if (frame.size.width<=frame.size.height) {
                 //竖屏时候
@@ -160,12 +160,8 @@
         }
         
         self.imageview.frame = imageFrame;
-//        NSLog(@"%@",NSStringFromCGRect(_scrollview.frame));
-//        NSLog(@"%@",NSStringFromCGRect(self.imageview.frame));
-//        self.scrollview.frame = self.imageview.frame;
         self.scrollview.contentSize = self.imageview.frame.size;
         self.imageview.center = [self centerOfScrollViewContent:self.scrollview];
-        
         //根据图片大小找到最大缩放等级，保证最大缩放时候，不会有黑边
         CGFloat maxScale = frame.size.height/imageFrame.size.height;
         maxScale = frame.size.width/imageFrame.size.width>maxScale?frame.size.width/imageFrame.size.width:maxScale;
